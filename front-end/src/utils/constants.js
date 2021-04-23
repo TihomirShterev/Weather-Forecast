@@ -11,3 +11,24 @@ export const cities = [
 export const genIconURL = (iconName = '') => `http://openweathermap.org/img/wn/${iconName}.png`;
 
 export const kToCels = (k = 0) => Math.trunc(k - 273.15);
+
+export const weatherTranslations = {
+  'light snow': 'Лек снеговалеж',
+  'rain and snow': 'Дъжд и сняг',
+  'light rain': 'Слаб валеж',
+  'overcast clouds': 'Гъста облачност',
+  'scattered clouds': 'Купеста облачност',
+  'broken clouds': 'Разкъсана облачност',
+  'few clouds': 'Слънчево с облаци',
+  'clear sky': 'Ясно'
+};
+
+export const dayTranslations = {
+  'Monday': 'Понеделник',
+  'Tuesday': 'Вторник',
+  'Wednesday': 'Сряда',
+  'Thursday': 'Четвъртък',
+  'Friday': 'Петък',
+  'Saturday': 'Събота',
+  'Sunday': 'Неделя',
+};

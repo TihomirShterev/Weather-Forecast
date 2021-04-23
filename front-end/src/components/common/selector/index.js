@@ -22,7 +22,6 @@ const Selector = ({
         <button className={styles["options-btn"]}>
           <span className="lnr lnr-chevron-right"></span>
           {cities.find(({ val }) => selected === val)?.name || 'Град'}
-          {' '}
           <span className="lnr lnr-chevron-left"></span>
         </button>
         <div className={styles["cities-list"]}>

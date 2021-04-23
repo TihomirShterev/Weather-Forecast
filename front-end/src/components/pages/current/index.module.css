@@ -2,7 +2,6 @@
   max-width: 1536px;
   margin: 0 auto;
   padding: 0 35px 25px;
-  border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -44,7 +43,7 @@
 }
 
 .current-forecast .info h1 {
-  margin: 20px 0;
+  margin: 20px 0 0;
   font-size: 34px;
   font-weight: 500;
 }
@@ -53,12 +52,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 200px;
 }
 
-.current-forecast .info .weather-icon-and-temp .icon,
+.current-forecast .info .weather-icon-and-temp .icon {
+  flex-basis: 60%;
+}
+
 .current-forecast .info .weather-icon-and-temp .temp {
   flex-basis: 35%;
+}
+
+.current-forecast .info .weather-icon-and-temp .icon img {
+  width: 100%;
 }
 
 .current-forecast .info .weather-icon-and-temp .temp {
@@ -105,8 +110,8 @@
   font-weight: bold;
 }
 
-.current-forecast .info .mini-icons .sunrise .time,
-.current-forecast .info .mini-icons .sunset .time {
+.current-forecast .info .mini-icons .sunrise,
+.current-forecast .info .mini-icons .sunset {
   color: #BDBDBD;
   font-size: 22px;
 }
@@ -145,6 +150,10 @@
   display: flex;
   background: #33313C;
   color: white;
+  width: 840px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
 
 .future-forecast .days-list .day-info {
@@ -152,6 +161,9 @@
   padding: 0 20px;
   font-size: 22px;
   text-align: center;
+}
+
+.future-forecast .days-list .day-info:not(:last-child) {
   border-right: 1px dashed white;
 }
 
@@ -188,7 +200,15 @@
 }
 
 .future-forecast .days-list .day-info .weather-icon {
-  width: 240px;
-  height: 80px;
-  margin-top: 20px;
+  width: 200px;
+  height: 180px;
+  margin: 0 20px;
+}
+
+.future-forecast .days-list .day-info .weather-icon img {
+  width: 100%;
+}
+
+i {
+  font-size: 30px;
 }

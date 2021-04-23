@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styles from './index.module.css';
-import { cities, genIconURL, kToCels } from '../../../utils/constants';
+import { cities, genIconURL, kToCels, weatherTranslations, dayTranslations } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -28,15 +28,7 @@ const CurrentForecast = ({
       console.log(data);
       setWeather(genIconURL(data.current.weather[0].icon));
       setTemperature(kToCels(data.current.temp));
-
-      switch (data.current.weather[0].description) {
-        case 'few clouds':
-          setDescription('Предимно облачно');
-          break;
-        default:
-          break;
-      }
-
+      setDescription(weatherTranslations[data.current.weather[0].description]);
       setFeelsLike(kToCels(data.current.feels_like));
       setHumidity(data.current.humidity);
       let sunriseTime = moment(data.current.sunrise).format('LT');
@@ -45,7 +37,29 @@ const CurrentForecast = ({
       let sunsetTime = moment(data.current.sunset).format('LT');
       sunsetTime = Number(sunsetTime.substring(0, 1)) + 12 + sunsetTime.substring(1, sunsetTime.length - 3);
       setSunset(sunsetTime);
-      setWeek(data.daily);
+
+      console.log(data.daily[4].weather[0].description);
+      let weekData = data.daily.slice(0, 7).map((day, i) => {
+        const { dt, temp, weather } = day;
+        const dateInMs = dt * 1000;
+        const dateDay = i === 0 ? 'Днес' : i === 1 ? 'Утре' : dayTranslations[moment(dateInMs).format('dddd')];
+        const date = moment(dateInMs).format('DD/MM/YYYY').replaceAll('/', '.');
+        return (
+          <article key={i} className={styles["day-info"]}>
+            <h3>{dateDay}</h3>
+            <h5>{date}</h5>
+            <span className={styles["info-icon"]}>ii</span>
+            <div className={styles["weather-icon"]}>
+              <img src={genIconURL(weather[0].icon)} alt="weather" />
+            </div>
+            <div className={styles.temperature}>
+              <span>{kToCels(temp.min)}&deg;</span><span>/</span><span>{kToCels(temp.max)}&deg;</span>
+            </div>
+            <h4>{weatherTranslations[weather[0].description]}</h4>
+          </article>
+        );
+      });
+      setWeek(weekData);
 
     } catch (err) {
       console.log(err);
@@ -95,13 +109,13 @@ const CurrentForecast = ({
                 </div>
               </div>
               <div className={styles.sunrise}>
-                <span>rise</span>
+                <i className="fas fa-sun"></i>
                 <div className={styles.time}>
                   <span>Изгрев {sunrise}</span>
                 </div>
               </div>
               <div className={styles.sunset}>
-                <span>set</span>
+                <i className="fas fa-moon"></i>
                 <div className={styles.time}>
                   <span>Залез {sunset}</span>
                 </div>
@@ -124,42 +138,7 @@ const CurrentForecast = ({
             </ul>
           </div>
           <div className={styles["days-list"]}>
-            <article className={styles["day-info"]}>
-              <h3>Днес</h3>
-              <h5>19.04.2021</h5>
-              <span className={styles["info-icon"]}>ii</span>
-              <div className={styles["weather-icon"]}>
-                <img src="" alt="weather" />
-              </div>
-              <div className={styles.temperature}>
-                <span>4&deg;</span><span>/</span><span>8&deg;</span>
-              </div>
-              <h4>Дъжд</h4>
-            </article>
-            <article className={styles["day-info"]}>
-              <h3>Днес</h3>
-              <h5>19.04.2021</h5>
-              <span className={styles["info-icon"]}>ii</span>
-              <div className={styles["weather-icon"]}>
-                <img src="" alt="weather" />
-              </div>
-              <div className={styles.temperature}>
-                <span>4&deg;</span><span>/</span><span>8&deg;</span>
-              </div>
-              <h4>Дъжд</h4>
-            </article>
-            <article className={styles["day-info"]}>
-              <h3>Днес</h3>
-              <h5>19.04.2021</h5>
-              <span className={styles["info-icon"]}>ii</span>
-              <div className={styles["weather-icon"]}>
-                <img src="" alt="weather" />
-              </div>
-              <div className={styles.temperature}>
-                <span>4&deg;</span><span>/</span><span>8&deg;</span>
-              </div>
-              <h4>Дъжд</h4>
-            </article>
+            {week}
           </div>
         </section>
       </div>
