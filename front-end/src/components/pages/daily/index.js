@@ -12,8 +12,6 @@ const DailyForecast = ({
   const getInfo = useCallback(async () => {
     try {
       const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
-
-      console.log(res);
       const data = await res.json();
       console.log(data);
     } catch (err) {

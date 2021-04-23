@@ -94,8 +94,8 @@
   align-items: center;
 }
 
-.current-forecast .info .mini-icons .humidity .percentage,
-.current-forecast .info .mini-icons .wind .speed {
+.current-forecast .info .mini-icons .humidity,
+.current-forecast .info .mini-icons .wind {
   color: #90D0DC;
 }
 

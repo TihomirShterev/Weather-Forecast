@@ -9,3 +9,5 @@ export const cities = [
 ];
 
 export const genIconURL = (iconName = '') => `http://openweathermap.org/img/wn/${iconName}.png`;
+
+export const kToCels = (k = 0) => Math.trunc(k - 273.15);

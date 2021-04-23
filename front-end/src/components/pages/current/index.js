@@ -1,23 +1,52 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styles from './index.module.css';
-import { cities } from '../../../utils/constants';
+import { cities, genIconURL, kToCels } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const CurrentForecast = ({
   match: {
     params: { city },
   },
 }) => {
+  const [weather, setWeather] = useState('');
+  const [temperature, setTemperature] = useState('');
+  const [description, setDescription] = useState('');
+  const [feelsLike, setFeelsLike] = useState('');
+  const [humidity, setHumidity] = useState('');
+  const [sunrise, setSunrise] = useState('');
+  const [sunset, setSunset] = useState('');
+  const [week, setWeek] = useState('');
+
   const current = cities.find(({ val }) => city === val);
 
   const getInfo = useCallback(async () => {
     try {
       const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
-
-      console.log(res);
       const data = await res.json();
       console.log(data);
+      setWeather(genIconURL(data.current.weather[0].icon));
+      setTemperature(kToCels(data.current.temp));
+
+      switch (data.current.weather[0].description) {
+        case 'few clouds':
+          setDescription('Предимно облачно');
+          break;
+        default:
+          break;
+      }
+
+      setFeelsLike(kToCels(data.current.feels_like));
+      setHumidity(data.current.humidity);
+      let sunriseTime = moment(data.current.sunrise).format('LT');
+      sunriseTime = '0' + sunriseTime.substring(0, sunriseTime.length - 3);
+      setSunrise(sunriseTime);
+      let sunsetTime = moment(data.current.sunset).format('LT');
+      sunsetTime = Number(sunsetTime.substring(0, 1)) + 12 + sunsetTime.substring(1, sunsetTime.length - 3);
+      setSunset(sunsetTime);
+      setWeek(data.daily);
+
     } catch (err) {
       console.log(err);
     }
@@ -44,23 +73,23 @@ const CurrentForecast = ({
             <h1>В момента</h1>
             <div className={styles["weather-icon-and-temp"]}>
               <div className={styles.icon}>
-                <img src="" alt="weather" />
+                <img src={weather} alt="weather" />
               </div>
               <div className={styles.temp}>
-                <span>6</span><span>&deg;C</span>
+                <span>{temperature}</span><span>&deg;C</span>
               </div>
             </div>
-            <h2>Дъжд</h2>
-            <h3>Усеща се като 4<span className={styles.celsius}>&deg;C</span></h3>
+            <h2>{description}</h2>
+            <h3>Усеща се като {feelsLike} &deg;C</h3>
             <div className={styles["mini-icons"]}>
               <div className={styles.humidity}>
-                <span>hum</span>
+                <i className="fas fa-tint"></i>
                 <div className={styles.percentage}>
-                  <span>85</span><span>%</span>
+                  <span>{humidity}</span><span>%</span>
                 </div>
               </div>
               <div className={styles.wind}>
-                <span>wind</span>
+                <i className="fas fa-wind"></i>
                 <div className={styles.speed}>
                   <span>4</span><span>м/с</span>
                 </div>
@@ -68,13 +97,13 @@ const CurrentForecast = ({
               <div className={styles.sunrise}>
                 <span>rise</span>
                 <div className={styles.time}>
-                  <span>Изгрев </span><span>06:39</span>
+                  <span>Изгрев {sunrise}</span>
                 </div>
               </div>
               <div className={styles.sunset}>
                 <span>set</span>
                 <div className={styles.time}>
-                  <span>Залез </span><span>20:13</span>
+                  <span>Залез {sunset}</span>
                 </div>
               </div>
             </div>
