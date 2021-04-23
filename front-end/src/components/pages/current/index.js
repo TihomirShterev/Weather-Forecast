@@ -17,7 +17,7 @@ const CurrentForecast = ({
   const [humidity, setHumidity] = useState('');
   const [sunrise, setSunrise] = useState('');
   const [sunset, setSunset] = useState('');
-  const [week, setWeek] = useState('');
+  const [week, setWeek] = useState([]);
 
   const current = cities.find(({ val }) => city === val);
 
@@ -48,7 +48,7 @@ const CurrentForecast = ({
           <article key={i} className={styles["day-info"]}>
             <h3>{dateDay}</h3>
             <h5>{date}</h5>
-            <span className={styles["info-icon"]}>ii</span>
+            <span className={styles["info-icon"]}><i class="fas fa-info-circle"></i></span>
             <div className={styles["weather-icon"]}>
               <img src={genIconURL(weather[0].icon)} alt="weather" />
             </div>

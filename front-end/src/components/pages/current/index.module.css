@@ -187,6 +187,16 @@
   font-weight: 100;
 }
 
+.future-forecast .days-list .day-info .weather-icon {
+  width: 200px;
+  height: 180px;
+  margin: 0 20px;
+}
+
+.future-forecast .days-list .day-info .weather-icon img {
+  width: 100%;
+}
+
 .future-forecast .days-list .day-info .temperature span:nth-child(1),
 .future-forecast .days-list .day-info .temperature span:nth-child(3) {
   font-size: 36px;
@@ -197,16 +207,6 @@
   font-size: 28px;
   color: #98EAE6;
   margin: 0 10px 0 5px;
-}
-
-.future-forecast .days-list .day-info .weather-icon {
-  width: 200px;
-  height: 180px;
-  margin: 0 20px;
-}
-
-.future-forecast .days-list .day-info .weather-icon img {
-  width: 100%;
 }
 
 i {
