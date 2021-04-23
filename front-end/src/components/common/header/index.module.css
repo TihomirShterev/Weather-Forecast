@@ -1,0 +1,46 @@
+.cities-nav {
+  position: relative;
+  display: inline-block;
+}
+
+.options-btn {
+  background: #03c9ec;
+  color: white;
+  padding: 16px;
+  font-size: 20px;
+  border: none;
+  outline: none;
+}
+
+.options-btn span {
+  font-size: 14px;
+  color: #f1f1f1;
+}
+
+.cities-list {
+  display: none;
+  list-style: none;
+  position: absolute;
+  background: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.cities-list a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.cities-list a:hover {
+  background: #f1f1f1;
+}
+
+.cities-nav:hover .cities-list {
+  display: block;
+}
+
+.cities-nav:hover .options-btn {
+  background: #00b8d8;
+}
