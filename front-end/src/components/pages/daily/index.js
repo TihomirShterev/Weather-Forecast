@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styles from './index.module.css';
-import { cities, genIconURL, kToCels } from '../../../utils/constants';
+import { cities, genIconURL, kToCels, pmTo24h } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -20,15 +20,33 @@ const DailyForecast = ({
       let hoursData = data.hourly.slice(0, 24).map((hour, i) => {
         const { dt, weather, temp, wind_speed, feels_like, pressure, humidity } = hour;
         const dateInMs = dt * 1000;
+        const date = moment(dateInMs).format('DD/MM/YYYY').replaceAll('/', '.');
+
         let dateTime = moment(dateInMs).format('LT');
 
-        if (Number(dateTime.substring(0, 1)) < 10) {
-          dateTime = '0' + dateTime.substring(0, dateTime.length - 3);
+        if (i < 12) {
+          if (Number(dateTime.substring(0, 2)) === 12) {
+            dateTime = '00' + dateTime.substring(2, dateTime.length - 3);
+          } else if (
+            Number(dateTime.substring(0, 2)) === 11
+            || Number(dateTime.substring(0, 2)) === 10
+          ) {
+            dateTime = dateTime.substring(0, dateTime.length - 3);
+          } else {
+            dateTime = '0' + dateTime.substring(0, dateTime.length - 3);
+          }
         } else {
-          dateTime = dateTime.substring(0, dateTime.length - 3);
+          if (Number(dateTime.substring(0, 2)) === 12) {
+            dateTime = dateTime.substring(0, dateTime.length - 3);
+          } else if (
+            Number(dateTime.substring(0, 2)) === 11
+            || Number(dateTime.substring(0, 2)) === 10
+          ) {
+            dateTime = Number(dateTime.substring(0, 2)) + 12 + dateTime.substring(2, dateTime.length - 3);
+          } else {
+            dateTime = Number(dateTime.substring(0, 1)) + 12 + dateTime.substring(1, dateTime.length - 3);
+          }
         }
-
-        const date = moment(dateInMs).format('DD/MM/YYYY').replaceAll('/', '.');
         return (
           <article key={i} className={styles["hour-value"]}>
             <div className={styles.time}>
@@ -127,7 +145,9 @@ const DailyForecast = ({
               <p>Влажност</p>
             </div>
           </article>
-          {hours}
+          <div className={styles["hour-values-container"]}>
+            {hours}
+          </div>
         </section>
         <section className={styles.icons}>
           <span className="lnr lnr-chevron-right"></span>
