@@ -1,20 +1,48 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { Redirect } from 'react-router';
 import styles from './index.module.css';
-import Header from '../../common/header';
+import { cities } from '../../../utils/constants';
+import { Link } from 'react-router-dom';
 
-const DailyForecast = () => {
+const DailyForecast = ({
+  match: {
+    params: { city },
+  },
+}) => {
+  const getInfo = useCallback(async () => {
+    try {
+      const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
+
+      console.log(res);
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+
+  }, [city]);
+
+  const current = cities.find(({ val }) => city === val);
+
+  useEffect(() => {
+    getInfo();
+  }, [getInfo]);
+
+  if (!current) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div>
-      <Header />
       <div className={styles["daily-container"]}>
         <section className={styles["sub-header"]}>
           <div className={styles.location}>
-            <h1>София</h1>
-            <h2>България</h2>
+            <h1>{current.name}</h1>
+            <h2>{current.country}</h2>
           </div>
           <ul>
             <li>
-              <a href="/">В момента</a>
+              <Link to={`/${current.val}/current`}>В момента</Link>
             </li>
             <li>
               <span>24 часа</span>

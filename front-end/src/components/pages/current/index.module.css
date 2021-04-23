@@ -1,9 +1,7 @@
 .current-container {
-  box-sizing: border-box;
   max-width: 1536px;
   margin: 0 auto;
-  padding: 0 25px 25px;
-  font-family: Helvetica, sans-serif; 
+  padding: 0 35px 25px;
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
@@ -22,7 +20,7 @@
 
 .current-forecast .location {
   color: white;
-  margin: 50px 0 20px 50px;
+  margin: 50px 0 20px 80px;
 }
 
 .current-forecast .location h1,

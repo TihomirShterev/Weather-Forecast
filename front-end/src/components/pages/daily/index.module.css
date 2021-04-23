@@ -2,8 +2,7 @@
   box-sizing: border-box;
   max-width: 1536px;
   margin: 0 auto;
-  padding: 0 25px 25px;
-  font-family: Helvetica, sans-serif;
+  padding: 0 35px 25px;
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
@@ -13,7 +12,7 @@
 
 .location {
   color: white;
-  margin: 50px 0 20px 50px;
+  margin: 50px 0 20px 80px;
 }
 
 .location h1,
@@ -195,7 +194,7 @@
 }
 
 .icons span:nth-child(1) {
-  right: -183px;
+  right: -188px;
 }
 
 .icons span:nth-child(2) {
@@ -207,13 +206,13 @@
 }
 
 .icons span:nth-child(4) {
-  right: -1152px;
+  right: -1182px;
 }
 
 .icons span:nth-child(5) {
-  right: -1082px;
+  right: -1113px;
 }
 
 .icons span:nth-child(6) {
-  right: -1055px;
+  right: -1086px;
 }

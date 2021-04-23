@@ -4,23 +4,23 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import './App.css';
-import Header from './components/common/header';
 
+const Selector = React.lazy(() => import('./components/common/selector'));
 const CurrentForecast = React.lazy(() => import('./components/pages/current'));
 const DailyForecast = React.lazy(() => import('./components/pages/daily'));
 
-const App = () => {
+const Navigation = () => {
   return (
     <BrowserRouter>
       <Suspense fallback={<h1>Loading.....</h1>}>
+        <Route path="/:city?" component={Selector} />
         <Switch>
-          <Route path="/" exact component={CurrentForecast} />
-          <Route path="/daily" component={DailyForecast} />
+          <Route path="/:city/current" component={CurrentForecast} />
+          <Route path="/:city/daily" component={DailyForecast} />
         </Switch>
       </Suspense>
     </BrowserRouter>
   );
 };
 
-export default App;
+export default Navigation;
