@@ -37,7 +37,7 @@ const DailyForecast = ({
           }
         } else {
           if (Number(dateTime.substring(0, 2)) === 12) {
-            dateTime = dateTime.substring(0, dateTime.length - 3);
+            dateTime = '00' + dateTime.substring(2, dateTime.length - 3);
           } else if (
             Number(dateTime.substring(0, 2)) === 11
             || Number(dateTime.substring(0, 2)) === 10
