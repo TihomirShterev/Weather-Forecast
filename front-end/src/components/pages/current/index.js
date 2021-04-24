@@ -15,6 +15,7 @@ const CurrentForecast = ({
   const [description, setDescription] = useState('');
   const [feelsLike, setFeelsLike] = useState('');
   const [humidity, setHumidity] = useState('');
+  const [windSpeed, setWindSpeed] = useState('');
   const [sunrise, setSunrise] = useState('');
   const [sunset, setSunset] = useState('');
   const [week, setWeek] = useState([]);
@@ -31,6 +32,7 @@ const CurrentForecast = ({
       setDescription(weatherTranslations[data.current.weather[0].description]);
       setFeelsLike(kToCels(data.current.feels_like));
       setHumidity(data.current.humidity);
+      setWindSpeed(Math.round(data.current.wind_speed));
       setSunrise(moment(data.current.sunrise).format('hh:mm'));
       setSunset(moment(data.current.sunset).format('HH:mm'));
       // console.log(data.daily[4].weather[0].description);
@@ -43,7 +45,7 @@ const CurrentForecast = ({
           <article key={i} className={styles["day-info"]}>
             <h3>{dateDay}</h3>
             <h5>{date}</h5>
-            <span className={styles["info-icon"]}><i class="fas fa-info-circle"></i></span>
+            <span className={styles["info-icon"]}><i className="fas fa-info-circle"></i></span>
             <div className={styles["weather-icon"]}>
               <img src={genIconURL(weather[0].icon)} alt="weather" />
             </div>
@@ -99,7 +101,7 @@ const CurrentForecast = ({
               <div className={styles.wind}>
                 <i className="fas fa-wind"></i>
                 <div className={styles.speed}>
-                  <span>4</span><span>м/с</span>
+                  <span>{windSpeed}</span><span>м/с</span>
                 </div>
               </div>
               <div className={styles.sunrise}>

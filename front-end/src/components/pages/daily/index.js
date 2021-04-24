@@ -43,14 +43,14 @@ const DailyForecast = ({
                 <i className="fas fa-wind"></i>
               </div>
               <div className={styles.value}>
-                <span>{wind_speed} м/с</span>
+                <span>{Math.round(wind_speed)} м/с</span>
               </div>
             </div>
             <div className={styles["feels-like"]}>
               <span>{kToCels(feels_like)} &deg;C</span>
             </div>
             <div className={styles["wind-speed"]}>
-              <span>{wind_speed} м/с</span>
+              <span>{Math.round(wind_speed)} м/с</span>
             </div>
             <div className={styles["wind-direction"]}>
               <span>{compass(wind_deg)}</span>
