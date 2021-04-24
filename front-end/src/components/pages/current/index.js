@@ -25,20 +25,15 @@ const CurrentForecast = ({
     try {
       const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       setWeather(genIconURL(data.current.weather[0].icon));
       setTemperature(kToCels(data.current.temp));
       setDescription(weatherTranslations[data.current.weather[0].description]);
       setFeelsLike(kToCels(data.current.feels_like));
       setHumidity(data.current.humidity);
-      let sunriseTime = moment(data.current.sunrise).format('LT');
-      sunriseTime = '0' + sunriseTime.substring(0, sunriseTime.length - 3);
-      setSunrise(sunriseTime);
-      let sunsetTime = moment(data.current.sunset).format('LT');
-      sunsetTime = Number(sunsetTime.substring(0, 1)) + 12 + sunsetTime.substring(1, sunsetTime.length - 3);
-      setSunset(sunsetTime);
-
-      console.log(data.daily[4].weather[0].description);
+      setSunrise(moment(data.current.sunrise).format('hh:mm'));
+      setSunset(moment(data.current.sunset).format('HH:mm'));
+      // console.log(data.daily[4].weather[0].description);
       let weekData = data.daily.slice(0, 7).map((day, i) => {
         const { dt, temp, weather } = day;
         const dateInMs = dt * 1000;
@@ -60,7 +55,6 @@ const CurrentForecast = ({
         );
       });
       setWeek(weekData);
-
     } catch (err) {
       console.log(err);
     }

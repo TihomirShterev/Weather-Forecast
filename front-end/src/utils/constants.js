@@ -19,8 +19,8 @@ export const weatherTranslations = {
   'overcast clouds': 'Гъста облачност',
   'scattered clouds': 'Купеста облачност',
   'broken clouds': 'Разкъсана облачност',
-  'few clouds': 'Слънчево с облаци',
-  'clear sky': 'Ясно'
+  'few clouds': 'Частично слънчево',
+  'clear sky': 'Слънчево'
 };
 
 export const dayTranslations = {
@@ -33,16 +33,26 @@ export const dayTranslations = {
   'Sunday': 'Неделя',
 };
 
-export const pmTo24h = {
-  '1': '13',
-  '2': '14',
-  '3': '15',
-  '4': '16',
-  '5': '17',
-  '6': '18',
-  '7': '19',
-  '8': '20',
-  '9': '21',
-  '10': '22',
-  '11': '23',
-};
+export const compass = (deg) => {
+  let direction;
+
+  if (deg <= 45) {
+    direction = 'Север';
+  } else if (deg <= 90) {
+    direction = 'Североизток';
+  } else if (deg <= 135) {
+    direction = 'Изтокзток';
+  } else if (deg <= 180) {
+    direction = 'Югоизток';
+  } else if (deg <= 225) {
+    direction = 'Юг';
+  } else if (deg <= 270) {
+    direction = 'Югозапад';
+  } else if (deg <= 315) {
+    direction = 'Запад';
+  } else if (deg <= 360) {
+    direction = 'Северозапад';
+  }
+
+  return direction;
+}

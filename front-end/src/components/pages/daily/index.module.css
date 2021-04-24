@@ -69,6 +69,7 @@
 .hourly-forecast .hour-keys {
   flex-basis: 14%;
   padding-right: 25px;
+  border-right: 1px dashed #C0C0C0;
 }
 
 .hourly-forecast .hour-keys div {
@@ -113,6 +114,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.hourly-forecast  .hour-values-container .hour-value:not(:first-child) {
   border-left: 1px dashed #C0C0C0;
 }
 
@@ -220,7 +224,7 @@
 }
 
 .icons span:nth-child(4) {
-  right: -1182px;
+  right: -1184px;
 }
 
 .icons span:nth-child(5) {

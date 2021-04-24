@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styles from './index.module.css';
-import { cities, genIconURL, kToCels, pmTo24h } from '../../../utils/constants';
+import { cities, genIconURL, kToCels, compass } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -16,37 +16,13 @@ const DailyForecast = ({
     try {
       const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
       const data = await res.json();
-
+      // console.log(data.daily[0]);
       let hoursData = data.hourly.slice(0, 24).map((hour, i) => {
-        const { dt, weather, temp, wind_speed, feels_like, pressure, humidity } = hour;
+        const { dt, weather, temp, wind_speed, feels_like, wind_deg, pressure, humidity } = hour;
         const dateInMs = dt * 1000;
-        const date = moment(dateInMs).format('DD/MM/YYYY').replaceAll('/', '.');
+        const date = moment(dateInMs).format('DD.MM.YYYY');
+        const dateTime = moment(dateInMs).format('HH:mm');
 
-        let dateTime = moment(dateInMs).format('LT');
-
-        if (i < 12) {
-          if (Number(dateTime.substring(0, 2)) === 12) {
-            dateTime = '00' + dateTime.substring(2, dateTime.length - 3);
-          } else if (
-            Number(dateTime.substring(0, 2)) === 11
-            || Number(dateTime.substring(0, 2)) === 10
-          ) {
-            dateTime = dateTime.substring(0, dateTime.length - 3);
-          } else {
-            dateTime = '0' + dateTime.substring(0, dateTime.length - 3);
-          }
-        } else {
-          if (Number(dateTime.substring(0, 2)) === 12) {
-            dateTime = '00' + dateTime.substring(2, dateTime.length - 3);
-          } else if (
-            Number(dateTime.substring(0, 2)) === 11
-            || Number(dateTime.substring(0, 2)) === 10
-          ) {
-            dateTime = Number(dateTime.substring(0, 2)) + 12 + dateTime.substring(2, dateTime.length - 3);
-          } else {
-            dateTime = Number(dateTime.substring(0, 1)) + 12 + dateTime.substring(1, dateTime.length - 3);
-          }
-        }
         return (
           <article key={i} className={styles["hour-value"]}>
             <div className={styles.time}>
@@ -77,7 +53,7 @@ const DailyForecast = ({
               <span>{wind_speed} м/с</span>
             </div>
             <div className={styles["wind-direction"]}>
-              <span>Североизток</span>
+              <span>{compass(wind_deg)}</span>
             </div>
             <div className={styles["atm-pressure"]}>
               <span>{pressure} hPa</span>
