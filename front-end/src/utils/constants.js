@@ -41,7 +41,7 @@ export const compass = (deg) => {
   } else if (deg <= 90) {
     direction = 'Североизток';
   } else if (deg <= 135) {
-    direction = 'Изтокзток';
+    direction = 'Изток';
   } else if (deg <= 180) {
     direction = 'Югоизток';
   } else if (deg <= 225) {
