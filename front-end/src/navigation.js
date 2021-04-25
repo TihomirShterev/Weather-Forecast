@@ -12,7 +12,7 @@ const DailyForecast = React.lazy(() => import('./components/pages/daily'));
 const Navigation = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<h1>Loading.....</h1>}>
+      <Suspense fallback={<h1>Зарежда се...</h1>}>
         <Route path="/:city?" component={Selector} />
         <Switch>
           <Route path="/:city/current" component={CurrentForecast} />

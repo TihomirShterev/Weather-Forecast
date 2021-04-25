@@ -1,0 +1,61 @@
+.metrics {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.show-form-btn,
+.add-metrics-form .submit-close-buttons button {
+  flex-basis: 50px;
+  padding: 10px 20px;
+  font-size: 20px;
+  background: #03c9ec;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.show-form-btn:hover,
+.add-metrics-form .submit-close-buttons button:hover {
+  background: #00b8d8;
+}
+
+.add-metrics-form {
+  background: white;
+}
+
+.add-metrics-form fieldset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.add-metrics-form .form-group {
+  font-weight: bold;
+  margin: 0 1px;
+}
+
+.add-metrics-form .form-group:not(:nth-child(1), :nth-child(2)) input {
+  width: 50px;
+}
+
+.add-metrics-form .error {
+  font-weight: bold;
+  margin: 0;
+  color: red;
+}
+
+.add-metrics-form fieldset > .error {
+  max-width: 160px;
+  margin-left: 5px;
+}
+
+.add-metrics-form .submit-close-buttons button {
+  padding: 5px 10px;
+  margin: 1px 0;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 6%;
+}

@@ -4,6 +4,7 @@ import styles from './index.module.css';
 import { cities, genIconURL, kToCels, compass } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import AddMetrics from '../../common/add-metrics';
 
 const DailyForecast = ({
   match: {
@@ -11,6 +12,8 @@ const DailyForecast = ({
   },
 }) => {
   const [hours, setHours] = useState([]);
+
+  const current = cities.find(({ val }) => city === val);
 
   const getInfo = useCallback(async () => {
     try {
@@ -69,9 +72,7 @@ const DailyForecast = ({
       console.log(err);
     }
 
-  }, [city]);
-
-  const current = cities.find(({ val }) => city === val);
+  }, [current.lat, current.lon]);
 
   useEffect(() => {
     getInfo();
@@ -133,6 +134,7 @@ const DailyForecast = ({
           <span className="lnr lnr-chevron-right"></span>
           <span className="lnr lnr-chevron-right"></span>
         </section>
+        <AddMetrics />
       </div>
     </div>
   );

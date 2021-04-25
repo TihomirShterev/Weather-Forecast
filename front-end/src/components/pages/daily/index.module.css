@@ -182,13 +182,18 @@
   margin-bottom: 35px;
 }
 
+.icons {
+  position: absolute;
+  bottom: -134px;
+}
+
 .icons span:nth-child(1),
 .icons span:nth-child(4) {
   text-decoration: none;
   font-size: 8em;
   color: #ECC896;
   position: relative;
-  bottom: 430px;
+  bottom: 30px;
 }
 
 .icons span:nth-child(2),
@@ -198,7 +203,7 @@
   font-weight: bold;
   color: darkgray;
   position: relative;
-  bottom: 472px;
+  bottom: 72px;
 }
 
 .icons span:nth-child(3),
@@ -208,7 +213,7 @@
   font-weight: bold;
   color: lightgray;
   position: relative;
-  bottom: 478px;
+  bottom: 78px;
 }
 
 .icons span:nth-child(1) {
