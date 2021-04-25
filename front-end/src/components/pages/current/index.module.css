@@ -100,9 +100,7 @@
 }
 
 .current-forecast .info .mini-icons .humidity,
-.current-forecast .info .mini-icons .wind,
-.future-forecast .days-list .day-info .info-icon .hidden-info .humidity,
-.future-forecast .days-list .day-info .info-icon .hidden-info .wind {
+.current-forecast .info .mini-icons .wind {
   color: #90D0DC;
 }
 
@@ -113,9 +111,7 @@
 }
 
 .current-forecast .info .mini-icons .sunrise,
-.current-forecast .info .mini-icons .sunset,
-.future-forecast .days-list .day-info .info-icon .hidden-info .sunrise,
-.future-forecast .days-list .day-info .info-icon .hidden-info .sunset {
+.current-forecast .info .mini-icons .sunset {
   color: #BDBDBD;
   font-size: 22px;
 }

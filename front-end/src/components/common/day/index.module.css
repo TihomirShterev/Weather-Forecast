@@ -1,0 +1,98 @@
+.day-info {
+  margin: 25px 0;
+  padding: 0 20px;
+  font-size: 22px;
+  text-align: center;
+}
+
+.day-info:not(:last-child) {
+  border-right: 1px dashed white;
+}
+
+.day-info h3,
+.day-info h5 {
+  font-weight: 100;
+  margin: 0;
+}
+
+.day-info h5 {
+  padding-bottom: 20px;
+}
+
+.day-info h5,
+.day-info h4 {
+  color: #C5C4CA;
+}
+
+.day-info h4 {
+  margin: 20px 0;
+  font-weight: 100;
+}
+
+.day-info .info-icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.day-info .info-icon .hidden-info {
+  display: none;
+  position: absolute;
+  padding: 15px;
+  margin-top: 25px;
+  border-radius: 7px;
+  background: #f9f9f9;
+  color: black;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.day-info .info-icon:hover .hidden-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 170px;
+}
+
+.day-info .info-icon:hover .hidden-info > span {
+  margin: 10px;
+}
+
+.day-info .info-icon .hidden-info .humidity,
+.day-info .info-icon .hidden-info .wind {
+  color: #90D0DC;
+}
+
+.day-info .info-icon .hidden-info .sunrise,
+.day-info .info-icon .hidden-info .sunset {
+  color: #BDBDBD;
+  font-size: 22px;
+}
+
+.day-info .weather-icon {
+  width: 200px;
+  height: 180px;
+  margin: 0 20px;
+}
+
+.day-info .weather-icon img {
+  width: 100%;
+}
+
+.day-info .temperature span:nth-child(1),
+.day-info .temperature span:nth-child(3) {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.day-info .temperature span:nth-child(2) {
+  font-size: 28px;
+  color: #98EAE6;
+  margin: 0 10px 0 5px;
+}
+
+i {
+  font-size: 30px;
+}
