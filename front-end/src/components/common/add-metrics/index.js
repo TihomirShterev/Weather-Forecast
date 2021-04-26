@@ -107,8 +107,8 @@ const AddMetrics = () => {
     }
   };
 
-  const emailErrorMessage = emailError ? 'Невалидна ел.поща' : null;
-  const usernameErrorMessage = usernameError ? 'Невалидно потр. име' : null;
+  const emailErrorMessage = emailError ? 'Невалидна електронна поща' : null;
+  const usernameErrorMessage = usernameError ? 'Невалидно потрeбителско име' : null;
   const temperatureErrorMessage = temperatureError ? 'от -20 до 60' : null;
   const windSpeedErrorMessage = windSpeedError ? 'от 0 до 200' : null;
   const humidityErrorMessage = humidityError ? '0 до 100' : null;
@@ -117,12 +117,15 @@ const AddMetrics = () => {
   const emptyFieldsErrorMessage = emptyFieldsError ? 'Моля, попълнете всички полета' : null;
 
   return (
-    <section className={styles.metrics}>
+    <>
       {
         isVisible
-          ? <>
+          ?
+          <section className={styles.metrics}>
+            <div className={styles.overlay} onClick={closeForm}></div>
             <form className={styles["add-metrics-form"]} onSubmit={handleSubmit}>
               <fieldset>
+                <span className={styles.close} onClick={closeForm}>×</span>
 
                 <div className={styles["form-group"]}>
                   <label htmlFor="username">Потребителско име: </label>
@@ -140,7 +143,7 @@ const AddMetrics = () => {
                 </div>
 
                 <div className={styles["form-group"]}>
-                  <label htmlFor="email">Ел.поща: </label>
+                  <label htmlFor="email">Елeктронна поща: </label>
                   <input
                     type="text"
                     name="email"
@@ -234,10 +237,7 @@ const AddMetrics = () => {
                   </p>
                 </div>
 
-                <div className={styles["submit-close-buttons"]}>
-                  <button onClick={closeForm}>Затвори</button>
-                  <button type="submit">Изпрати</button>
-                </div>
+                <button type="submit">Изпрати</button>
 
                 <p className={styles.error}>
                   {emptyFieldsErrorMessage}
@@ -245,12 +245,11 @@ const AddMetrics = () => {
 
               </fieldset>
             </form>
-          </>
-          : <>
-            <button className={styles["show-form-btn"]} onClick={showForm}>Добави измервания ръчно</button>
-          </>
+          </section>
+
+          : <button className={styles["show-form-btn"]} onClick={showForm}>Добави измервания ръчно</button>
       }
-    </section>
+    </>
   );
 };
 

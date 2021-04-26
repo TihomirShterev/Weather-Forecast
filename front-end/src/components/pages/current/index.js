@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import styles from './index.module.css';
-import { cities, genIconURL, kToCels, weatherTranslations } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import styles from './index.module.css';
+import { cities, genIconURL, kToCels, weatherTranslations } from '../../../utils/constants';
 import Day from '../../common/day';
+import { apiKey, baseURL } from '../../../config/config';
 
 const CurrentForecast = ({
   match: {
@@ -25,7 +26,8 @@ const CurrentForecast = ({
 
   const getInfo = useCallback(async () => {
     try {
-      const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
+      const res = await fetch(`${baseURL}?lat=${current.lat}&lon=${current.lon}&appid=${apiKey}`);
+      // const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
       const data = await res.json();
       // console.log(data);
       setWeather(genIconURL(data.current.weather[0].icon));

@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import styles from './index.module.css';
-import { cities, genIconURL, kToCels, compass } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import styles from './index.module.css';
+import { cities, genIconURL, kToCels, compass } from '../../../utils/constants';
 import AddMetrics from '../../common/add-metrics';
+import { apiKey, baseURL } from '../../../config/config';
 
 const DailyForecast = ({
   match: {
@@ -17,7 +18,7 @@ const DailyForecast = ({
 
   const getInfo = useCallback(async () => {
     try {
-      const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
+      const res = await fetch(`${baseURL}?lat=${current.lat}&lon=${current.lon}&appid=${apiKey}`);
       const data = await res.json();
       // console.log(data.daily[0]);
       let hoursData = data.hourly.slice(0, 24).map((hour, i) => {

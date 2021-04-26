@@ -5,7 +5,7 @@
   padding: 0 35px 25px;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
+  justify-content: flex-end;
   letter-spacing: 1px;
 }
 
