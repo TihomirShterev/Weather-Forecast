@@ -1,0 +1,72 @@
+.hour-values {
+  flex-basis: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hour-values:not(:first-child) {
+  border-left: 1px dashed #C0C0C0;
+}
+
+.hour-values div {
+  text-align: center;
+}
+
+.hour-values .time {
+  margin: 2px 0 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hour-values .time span:nth-child(1) {
+  font-weight: bold;
+}
+
+.hour-values .time span:nth-child(2) {
+  color: #C0C0C0;
+}
+
+.hour-values .weather {
+  margin-bottom: 80px;
+}
+
+.hour-values .weather .icon {
+  height: 70px;
+  width: 100px;
+  margin: 0 18px 20px;
+}
+
+.hour-values .weather .icon img {
+  width: 100%;
+}
+
+.hour-values .weather .temp {
+  color: #F29A40;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.hour-values .weather .temp span:nth-child(1) {
+  font-size: 28px;
+}
+
+.hour-values .wind-speed-icon {
+  margin-bottom: 100px;
+}
+
+.hour-values .wind-speed-icon .icon {
+  color: #dadada;
+}
+
+.hour-values .wind-speed-icon .value {
+  color: #C8E4ED;
+}
+
+.hour-values .feels-like,
+.hour-values .wind-speed,
+.hour-values .wind-direction,
+.hour-values .atm-pressure {
+  margin-bottom: 35px;
+}

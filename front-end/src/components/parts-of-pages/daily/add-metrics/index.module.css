@@ -18,9 +18,13 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.show-form-btn {
+  position: relative;
+  right: -1187px;
+}
+
 .show-form-btn,
 .add-metrics-form button {
-  flex-basis: 50px;
   padding: 10px 20px;
   font-size: 18px;
   background: #03c9ec;

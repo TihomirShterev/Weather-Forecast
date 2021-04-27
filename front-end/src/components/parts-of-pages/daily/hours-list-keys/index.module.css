@@ -1,0 +1,34 @@
+.hours-list-keys {
+  flex-basis: 14%;
+  padding-right: 25px;
+  border-right: 1px dashed #C0C0C0;
+}
+
+.hours-list-keys div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.hours-list-keys div:nth-child(1) {
+  margin-bottom: 240px;
+}
+
+.hours-list-keys div:nth-child(1) span:nth-child(1) {
+  font-weight: bold;
+}
+
+.hours-list-keys div:nth-child(1) span:nth-child(2) {
+  color: #C0C0C0;
+  font-size: 21px;
+}
+
+.hours-list-keys div:nth-child(2) p {
+  width: 124px;
+  text-align: end;
+  margin-bottom: 90px;
+}
+
+.hours-list-keys div:nth-child(3) p {
+  margin-bottom: 15px;
+}

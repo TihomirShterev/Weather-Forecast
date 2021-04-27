@@ -15,7 +15,8 @@ export const kToCels = (k = 0) => Math.trunc(k - 273.15);
 export const weatherTranslations = {
   'light snow': 'Лек снеговалеж',
   'rain and snow': 'Дъжд и сняг',
-  'light rain': 'Слаб валеж',
+  'moderate rain': 'Умерен дъжд',
+  'light rain': 'Слаб дъжд',
   'overcast clouds': 'Гъста облачност',
   'scattered clouds': 'Купеста облачност',
   'broken clouds': 'Разкъсана облачност',

@@ -1,9 +1,9 @@
 import moment from 'moment';
 import React from 'react';
-import { dayTranslations, genIconURL, kToCels, weatherTranslations } from '../../../utils/constants';
+import { dayTranslations, genIconURL, kToCels, weatherTranslations } from '../../../../utils/constants';
 import styles from './index.module.css';
 
-const Day = ({ dt, temp, weather, humidity, wind_speed, sunrise, sunset, i }) => {
+const WeekDay = ({ dt, temp, weather, humidity, wind_speed, sunrise, sunset, i }) => {
   const dateInMs = dt * 1000;
   const dateDay = i === 0 ? 'Днес' : i === 1 ? 'Утре' : dayTranslations[moment(dateInMs).format('dddd')];
   const date = moment(dateInMs).format('DD.MM.YYYY');
@@ -11,7 +11,7 @@ const Day = ({ dt, temp, weather, humidity, wind_speed, sunrise, sunset, i }) =>
   const sunsetTime = moment(sunset).format('HH:mm');
 
   return (
-    <article key={i} className={styles["day-info"]}>
+    <article key={i} className={styles["week-day"]}>
       <h3>{dateDay}</h3>
       <h5>{date}</h5>
       <div className={styles["info-icon"]}>
@@ -54,4 +54,4 @@ const Day = ({ dt, temp, weather, humidity, wind_speed, sunrise, sunset, i }) =>
   );
 };
 
-export default Day;
+export default WeekDay;

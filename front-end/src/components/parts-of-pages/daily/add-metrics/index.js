@@ -247,7 +247,9 @@ const AddMetrics = () => {
             </form>
           </section>
 
-          : <button className={styles["show-form-btn"]} onClick={showForm}>Добави измервания ръчно</button>
+          : <div className="show-form-btn-container">
+            <button className={styles["show-form-btn"]} onClick={showForm}>Добави измервания ръчно</button>
+          </div>
       }
     </>
   );

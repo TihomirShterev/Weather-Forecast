@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import styles from './index.module.css';
 import { cities, genIconURL, kToCels, weatherTranslations } from '../../../utils/constants';
-import Day from '../../common/day';
+import WeekDay from '../../parts-of-pages/current/week-day';
 import { apiKey, baseURL } from '../../../config/config';
+import AtTheMoment from '../../parts-of-pages/current/at-the-moment';
+import Header from '../../common/header';
 
 const CurrentForecast = ({
   match: {
@@ -21,15 +22,16 @@ const CurrentForecast = ({
   const [sunrise, setSunrise] = useState('');
   const [sunset, setSunset] = useState('');
   const [week, setWeek] = useState([]);
+  const [cityName, setCityName] = useState('');
+  const [country, setCountry] = useState('');
+  const [cityPath, setCityPath] = useState('');
 
   const current = cities.find(({ val }) => city === val);
 
   const getInfo = useCallback(async () => {
     try {
       const res = await fetch(`${baseURL}?lat=${current.lat}&lon=${current.lon}&appid=${apiKey}`);
-      // const res = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${current.lat}&lon=${current.lon}&appid=5ca3ed725d503a2eb0ab2b0af055061d`);
       const data = await res.json();
-      // console.log(data);
       setWeather(genIconURL(data.current.weather[0].icon));
       setTemperature(kToCels(data.current.temp));
       setDescription(weatherTranslations[data.current.weather[0].description]);
@@ -38,13 +40,15 @@ const CurrentForecast = ({
       setWindSpeed(Math.round(data.current.wind_speed));
       setSunrise(moment(data.current.sunrise).format('hh:mm'));
       setSunset(moment(data.current.sunset).format('HH:mm'));
-      // console.log(data.daily[4].weather[0].description);
       let weekData = data.daily.slice(0, 7).map((day, i) => {
         return (
-          <Day key={i} {...day} />
+          <WeekDay key={i} {...day} />
         );
       });
       setWeek(weekData);
+      setCityName(current.name);
+      setCountry(current.country);
+      setCityPath(current.val);
     } catch (err) {
       console.log(err);
     }
@@ -59,69 +63,28 @@ const CurrentForecast = ({
     return <Redirect to="/" />;
   }
 
+  const stateData = {
+    weather,
+    temperature,
+    description,
+    feelsLike,
+    humidity,
+    windSpeed,
+    sunrise,
+    sunset,
+    week,
+    cityName,
+    country,
+    cityPath
+  };
+
   return (
-    <div>
-      <div className={styles["current-container"]}>
-        <section className={styles["current-forecast"]}>
-          <div className={styles.location}>
-            <h1>{current.name}</h1>
-            <h2>{current.country}</h2>
-          </div>
-          <article className={styles.info}>
-            <h1>В момента</h1>
-            <div className={styles["weather-icon-and-temp"]}>
-              <div className={styles.icon}>
-                <img src={weather} alt="weather" />
-              </div>
-              <div className={styles.temp}>
-                <span>{temperature}</span><span>&deg;C</span>
-              </div>
-            </div>
-            <h2>{description}</h2>
-            <h3>Усеща се като {feelsLike} &deg;C</h3>
-            <div className={styles["mini-icons"]}>
-              <div className={styles.humidity}>
-                <i className="fas fa-tint"></i>
-                <div className={styles.percentage}>
-                  <span>{humidity}</span><span>%</span>
-                </div>
-              </div>
-              <div className={styles.wind}>
-                <i className="fas fa-wind"></i>
-                <div className={styles.speed}>
-                  <span>{windSpeed}</span><span>м/с</span>
-                </div>
-              </div>
-              <div className={styles.sunrise}>
-                <i className="fas fa-sun"></i>
-                <div className={styles.time}>
-                  <span>Изгрев {sunrise}</span>
-                </div>
-              </div>
-              <div className={styles.sunset}>
-                <i className="fas fa-moon"></i>
-                <div className={styles.time}>
-                  <span>Залез {sunset}</span>
-                </div>
-              </div>
-            </div>
-          </article>
-        </section>
+    <div className={styles["current-container"]}>
+      <Header {...stateData} />
+      <div className={styles["content-container"]}>
+        <AtTheMoment {...stateData} />
         <section className={styles["future-forecast"]}>
-          <div className={styles["sub-header"]}>
-            <ul>
-              <li>
-                <Link to={`/${current.val}/daily`}>24 часа</Link>
-              </li>
-              <li>
-                <a href="/:city/ten-day">10 дни</a>
-              </li>
-              <li>
-                <a href="/:city/weekend">Уикенд</a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["days-list"]}>
+          <div className={styles["week-days-list"]}>
             {week}
           </div>
         </section>

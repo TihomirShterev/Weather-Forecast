@@ -1,35 +1,35 @@
-.day-info {
+.week-day {
   margin: 25px 0;
   padding: 0 20px;
   font-size: 22px;
   text-align: center;
 }
 
-.day-info:not(:last-child) {
+.week-day:not(:last-child) {
   border-right: 1px dashed white;
 }
 
-.day-info h3,
-.day-info h5 {
+.week-day h3,
+.week-day h5 {
   font-weight: 100;
   margin: 0;
 }
 
-.day-info h5 {
+.week-day h5 {
   padding-bottom: 20px;
 }
 
-.day-info h5,
-.day-info h4 {
+.week-day h5,
+.week-day h4 {
   color: #C5C4CA;
 }
 
-.day-info h4 {
+.week-day h4 {
   margin: 20px 0;
   font-weight: 100;
 }
 
-.day-info .info-icon {
+.week-day .info-icon {
   position: relative;
   display: flex;
   justify-content: center;
@@ -37,7 +37,7 @@
   width: fit-content;
 }
 
-.day-info .info-icon .hidden-info {
+.week-day .info-icon .hidden-info {
   display: none;
   position: absolute;
   padding: 15px;
@@ -49,45 +49,45 @@
   z-index: 1;
 }
 
-.day-info .info-icon:hover .hidden-info {
+.week-day .info-icon:hover .hidden-info {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 170px;
 }
 
-.day-info .info-icon:hover .hidden-info > span {
+.week-day .info-icon:hover .hidden-info > span {
   margin: 10px;
 }
 
-.day-info .info-icon .hidden-info .humidity,
-.day-info .info-icon .hidden-info .wind {
+.week-day .info-icon .hidden-info .humidity,
+.week-day .info-icon .hidden-info .wind {
   color: #90D0DC;
 }
 
-.day-info .info-icon .hidden-info .sunrise,
-.day-info .info-icon .hidden-info .sunset {
+.week-day .info-icon .hidden-info .sunrise,
+.week-day .info-icon .hidden-info .sunset {
   color: #BDBDBD;
   font-size: 22px;
 }
 
-.day-info .weather-icon {
+.week-day .weather-icon {
   width: 200px;
   height: 180px;
   margin: 0 20px;
 }
 
-.day-info .weather-icon img {
+.week-day .weather-icon img {
   width: 100%;
 }
 
-.day-info .temperature span:nth-child(1),
-.day-info .temperature span:nth-child(3) {
+.week-day .temperature span:nth-child(1),
+.week-day .temperature span:nth-child(3) {
   font-size: 36px;
   margin-bottom: 20px;
 }
 
-.day-info .temperature span:nth-child(2) {
+.week-day .temperature span:nth-child(2) {
   font-size: 28px;
   color: #98EAE6;
   margin: 0 10px 0 5px;

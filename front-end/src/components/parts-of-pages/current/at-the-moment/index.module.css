@@ -1,0 +1,95 @@
+.current-forecast,
+.future-forecast .sub-header li {
+  background: white;
+}
+
+.current-forecast {
+  flex-basis: 38%;
+}
+
+.current-forecast {
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.current-forecast h1 {
+  margin: 20px 0 0;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.current-forecast .weather-icon-and-temp {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.current-forecast .weather-icon-and-temp .icon {
+  flex-basis: 65%;
+  height: 240px;
+}
+
+.current-forecast .weather-icon-and-temp .temp {
+  flex-basis: 35%;
+}
+
+.current-forecast .weather-icon-and-temp .icon img {
+  width: 100%;
+  position: relative;
+  top: -90px;
+}
+
+.current-forecast .weather-icon-and-temp .temp {
+  display: flex;
+  margin-top: 20px;
+  color: #F29A40;
+}
+
+.current-forecast .weather-icon-and-temp .temp span:first-child {
+  font-size: 80px;
+}
+
+.current-forecast .weather-icon-and-temp .temp span:last-child {
+  padding-top: 5px;
+  font-size: 40px;
+}
+
+.current-forecast h2 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.current-forecast h3 {
+  margin: 5px 0 40px;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.current-forecast .mini-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.current-forecast .mini-icons .humidity,
+.current-forecast .mini-icons .wind {
+  color: #90D0DC;
+}
+
+.current-forecast .mini-icons .humidity .percentage span:first-child,
+.current-forecast .mini-icons .wind .speed span:first-child {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.current-forecast .mini-icons .sunrise,
+.current-forecast .mini-icons .sunset {
+  color: #BDBDBD;
+  font-size: 22px;
+}
+
+.current-forecast .mini-icons > div {
+  margin: 0 13px;
+}
