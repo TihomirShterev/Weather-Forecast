@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './index.module.css';
 
 const Header = ({ cityName, country, cityPath }) => {
   const location = useLocation();
-  let currentClass;
-  let dailyClass;
+  const [currentClass, setCurrentClass] = useState('');
+  const [dailyClass, setDailyClass] = useState('');
 
-  if (location.pathname === `/${cityPath}/current`) {
-    currentClass = 'highlighted';
-    dailyClass = 'normal'
-  } else if (location.pathname === `/${cityPath}/daily`) {
-    currentClass = 'normal';
-    dailyClass = 'highlighted';
-  }
+  useLayoutEffect(() => {
+    if (location.pathname === `/${cityPath}/current`) {
+      setCurrentClass('highlighted');
+    } else if (location.pathname === `/${cityPath}/daily`) {
+      setDailyClass('highlighted');
+    }
+  }, [location.pathname, cityPath]);
+
 
   return (
     <header className={styles.header}>
@@ -28,10 +29,10 @@ const Header = ({ cityName, country, cityPath }) => {
         <li className={styles[`${dailyClass}`]}>
           <Link to={`/${cityPath}/daily`}>24 часа</Link>
         </li>
-        <li className={styles.normal}>
+        <li>
           <Link to={`/${cityPath}/ten-day`}>10 дни</Link>
         </li>
-        <li className={styles.normal}>
+        <li>
           <Link to={`/${cityPath}/weekend`}>Уикенд</Link>
         </li>
       </ul>

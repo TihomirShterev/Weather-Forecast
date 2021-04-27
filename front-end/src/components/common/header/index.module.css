@@ -34,7 +34,7 @@
   background: white;
 }
 
-.header ul .normal {
+.header ul li {
   padding: 15px 30px;
   font-size: 23px;
   border-bottom: 10px solid #F29A40;
@@ -44,6 +44,7 @@
   padding: 20px 156px 55px;
   font-size: 42px;
   border-top: 10px solid #F29A40;
+  border-bottom: none;
 }
 
 /* .header ul li:not(:nth-child(1)) {
