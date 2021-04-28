@@ -3,9 +3,9 @@ import { Redirect } from 'react-router';
 import moment from 'moment';
 import styles from './index.module.css';
 import { cities, genIconURL, kToCels, weatherTranslations } from '../../../utils/constants';
-import WeekDay from '../../parts-of-pages/current/week-day';
+import WeekDay from '../../pages/current/week-day';
 import { apiKey, baseURL } from '../../../config/config';
-import AtTheMoment from '../../parts-of-pages/current/at-the-moment';
+import AtTheMoment from '../../pages/current/at-the-moment';
 import Header from '../../common/header';
 
 const CurrentForecast = ({

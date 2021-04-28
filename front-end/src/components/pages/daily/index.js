@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styles from './index.module.css';
 import { cities } from '../../../utils/constants';
-import AddMetrics from '../../parts-of-pages/daily/add-metrics';
+import AddMetrics from '../../pages/daily/add-metrics';
 import { apiKey, baseURL } from '../../../config/config';
-import HourValues from '../../parts-of-pages/daily/hour-values';
-import Arrows from '../../parts-of-pages/daily/arrows';
-import HoursListKeys from '../../parts-of-pages/daily/hours-list-keys';
+import HourValues from '../../pages/daily/hour-values';
+import Arrows from '../../pages/daily/arrows';
+import HoursListKeys from '../../pages/daily/hours-list-keys';
 import Header from '../../common/header';
 
 const DailyForecast = ({
@@ -38,7 +38,7 @@ const DailyForecast = ({
       console.log(err);
     }
 
-  }, [current.lat, current.lon, current.country, current.name, current.val]);
+  }, [current]);
 
   useEffect(() => {
     getInfo();
