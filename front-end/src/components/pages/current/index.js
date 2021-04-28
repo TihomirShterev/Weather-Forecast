@@ -4,9 +4,10 @@ import moment from 'moment';
 import styles from './index.module.css';
 import { cities, genIconURL, kToCels, weatherTranslations } from '../../../utils/constants';
 import WeekDay from '../../pages/current/week-day';
-import { apiKey, baseURL } from '../../../config/config';
 import AtTheMoment from '../../pages/current/at-the-moment';
 import Header from '../../common/header';
+import { getCoordinates } from '../../../services/coordinates';
+import { getFullWeatherInfo } from '../../../services/weather';
 
 const CurrentForecast = ({
   match: {
@@ -30,8 +31,8 @@ const CurrentForecast = ({
 
   const getInfo = useCallback(async () => {
     try {
-      const res = await fetch(`${baseURL}?lat=${current.lat}&lon=${current.lon}&appid=${apiKey}`);
-      const data = await res.json();
+      const [latitude, longitude] = await getCoordinates(current.val, current.isoCode);
+      const data = await getFullWeatherInfo(latitude, longitude);
       setWeather(genIconURL(data.current.weather[0].icon));
       setTemperature(kToCels(data.current.temp));
       setDescription(weatherTranslations[data.current.weather[0].description]);

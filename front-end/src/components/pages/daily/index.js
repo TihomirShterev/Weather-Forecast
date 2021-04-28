@@ -3,11 +3,12 @@ import { Redirect } from 'react-router';
 import styles from './index.module.css';
 import { cities } from '../../../utils/constants';
 import AddMetrics from '../../pages/daily/add-metrics';
-import { apiKey, baseURL, mapsKey, mapsURL } from '../../../config/config';
 import HourValues from '../../pages/daily/hour-values';
 import Arrows from '../../pages/daily/arrows';
 import HoursListKeys from '../../pages/daily/hours-list-keys';
 import Header from '../../common/header';
+import { getCoordinates } from '../../../services/coordinates';
+import { getFullWeatherInfo } from '../../../services/weather';
 
 const DailyForecast = ({
   match: {
@@ -18,27 +19,13 @@ const DailyForecast = ({
   const [cityName, setCityName] = useState('');
   const [country, setCountry] = useState('');
   const [cityPath, setCityPath] = useState('');
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
 
   const current = cities.find(({ val }) => city === val);
 
-  const getCoordinates = useCallback(async () => {
-    try {
-      const res = await fetch(`${mapsURL}${current.val}+${current.isoCode}&key=${mapsKey}`);
-      const data = await res.json();
-      setLatitude(data.results[0].geometry.location.lat);
-      setLongitude(data.results[0].geometry.location.lng);
-    } catch (err) {
-      console.log(err);
-    }
-  }, [current]);
-
   const getInfo = useCallback(async () => {
     try {
-      // const res = await fetch(`${baseURL}?lat=${current.lat}&lon=${current.lon}&appid=${apiKey}`); // static coordinates
-      const res = await fetch(`${baseURL}?lat=${latitude}&lon=${longitude}&appid=${apiKey}`); // coordinates from Google Maps API 
-      const data = await res.json();
+      const [latitude, longitude] = await getCoordinates(current.val, current.isoCode);
+      const data = await getFullWeatherInfo(latitude, longitude);
       let hoursData = data.hourly.slice(0, 24).map((hour, i) => {
         return (
           <HourValues key={i} {...hour} />
@@ -52,12 +39,11 @@ const DailyForecast = ({
       console.log(err);
     }
 
-  }, [current, latitude, longitude]);
+  }, [current]);
 
   useEffect(() => {
-    getCoordinates();
     getInfo();
-  }, [getCoordinates, getInfo]);
+  }, [getInfo]);
 
   if (!current) {
     return <Redirect to="/" />;
