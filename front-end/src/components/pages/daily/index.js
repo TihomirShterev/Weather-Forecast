@@ -8,7 +8,7 @@ import Arrows from '../../pages/daily/arrows';
 import HoursListKeys from '../../pages/daily/hours-list-keys';
 import Header from '../../common/header';
 import { getCoordinates } from '../../../services/coordinates';
-import { getFullWeatherInfo } from '../../../services/weather';
+import { getFullWeatherInfo, getPreviousDayInfo } from '../../../services/weather';
 
 const DailyForecast = ({
   match: {
@@ -19,19 +19,33 @@ const DailyForecast = ({
   const [cityName, setCityName] = useState('');
   const [country, setCountry] = useState('');
   const [cityPath, setCityPath] = useState('');
+  const [clickCounter, setClickCounter] = useState(0);
 
   const current = cities.find(({ val }) => city === val);
+
+  const showPreviousDay = () => {
+    setClickCounter(clickCounter + 1);
+  };
 
   const getInfo = useCallback(async () => {
     try {
       const [latitude, longitude] = await getCoordinates(current.val, current.isoCode);
-      const data = await getFullWeatherInfo(latitude, longitude);
+      let data;
+
+      if (clickCounter % 6 === 0) {
+        data = await getFullWeatherInfo(latitude, longitude);
+      } else {
+        if (clickCounter % 6 !== 0) {
+          data = await getPreviousDayInfo(latitude, longitude, clickCounter);
+        }
+      }
       let hoursData = data.hourly.slice(0, 24).map((hour, i) => {
         return (
           <HourValues key={i} {...hour} />
         );
       });
       setHours(hoursData);
+
       setCityName(current.name);
       setCountry(current.country);
       setCityPath(current.val);
@@ -39,7 +53,7 @@ const DailyForecast = ({
       console.log(err);
     }
 
-  }, [current]);
+  }, [current, clickCounter]);
 
   useEffect(() => {
     getInfo();
@@ -65,6 +79,9 @@ const DailyForecast = ({
         </div>
       </section>
       <Arrows />
+      <button className={styles["history-btn"]} onClick={showPreviousDay}>
+        {clickCounter % 6 !== 5 ? 'Предишен ден' : 'Днес'}
+      </button>
       <AddMetrics />
     </div>
   );

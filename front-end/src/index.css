@@ -8,7 +8,7 @@ body {
   max-width: 1536px;
   margin: 0 auto;
   font-family: Helvetica, sans-serif; 
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('images/rain.jpg') no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('assets/rain.jpg') no-repeat;
   background-size: cover;
   letter-spacing: 1px;
 }

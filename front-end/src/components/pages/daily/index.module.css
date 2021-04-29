@@ -22,3 +22,21 @@
   overflow-y: hidden;
   white-space: nowrap;
 }
+
+.history-btn {
+  align-self: flex-end;
+  position: relative;
+  right: 265px;
+  padding: 10px 20px;
+  width: 163px;
+  font-size: 18px;
+  background: #03c9ec;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.history-btn:hover {
+  background: #00b8d8;
+  cursor: pointer;
+}

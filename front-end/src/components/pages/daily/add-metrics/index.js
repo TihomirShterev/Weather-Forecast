@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import { addMetrics } from '../../../../services/metrics';
 import styles from './index.module.css';
 
 const AddMetrics = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [temperature, setTemperature] = useState(Number);
-  const [windSpeed, setWindSpeed] = useState(Number);
-  const [humidity, setHumidity] = useState(Number);
-  const [pressure, setPressure] = useState(Number);
-  const [rain, setRain] = useState(Number);
+  const [temperature, setTemperature] = useState(0);
+  const [windSpeed, setWindSpeed] = useState(0);
+  const [humidity, setHumidity] = useState(0);
+  const [pressure, setPressure] = useState(0);
+  const [rain, setRain] = useState(0);
   const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [temperatureError, setTemperatureError] = useState(false);
@@ -89,21 +90,7 @@ const AddMetrics = () => {
 
     if (hasNoError) {
       setIsVisible(false);
-      await fetch('https://openweathermap.org/stations#measurement', {
-        method: 'POST',
-        body: JSON.stringify({
-          username,
-          email,
-          temperature,
-          windSpeed,
-          humidity,
-          pressure,
-          rain
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      await addMetrics({ username, email, temperature, windSpeed, humidity, pressure, rain });
     }
   };
 
@@ -247,7 +234,7 @@ const AddMetrics = () => {
             </form>
           </section>
 
-          : <div className="show-form-btn-container">
+          : <div className={styles["show-form-btn-container"]}>
             <button className={styles["show-form-btn"]} onClick={showForm}>Добави измервания ръчно</button>
           </div>
       }

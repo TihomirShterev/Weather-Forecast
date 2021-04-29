@@ -18,6 +18,12 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.show-form-btn-container {
+  align-self: flex-start;
+  position: relative;
+  bottom: 41px;
+}
+
 .show-form-btn {
   position: relative;
   right: -1187px;
