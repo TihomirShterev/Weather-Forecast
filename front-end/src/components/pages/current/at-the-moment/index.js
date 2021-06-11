@@ -5,7 +5,7 @@ import styles from './index.module.css';
 import { genIconURL, kToCels, weatherTranslations } from '../../../../utils/constants';
 
 const AtTheMoment = () => {
-  const current = useSelector(state => state.weatherReducer.daysData.current);
+  const current = useSelector(state => state.weather.current);
   if (current) {
     const { weather, temp, feels_like, humidity, wind_speed, sunrise, sunset } = current;
     const weatherIcon = genIconURL(weather[0].icon);
@@ -59,7 +59,6 @@ const AtTheMoment = () => {
   } else {
     return null;
   }
-
 };
 
 export default AtTheMoment;

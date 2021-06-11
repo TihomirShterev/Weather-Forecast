@@ -1,9 +1,12 @@
 import { combineReducers } from "redux";
-import { coordinatesReducer, weatherReducer } from "./forecastReducer";
+import { coordinatesReducer, weatherReducer, counterReducer, metricsReducer, headerDataReducer } from "./forecastReducer";
 
 const reducers = combineReducers({
-  coordinatesReducer,
-  weatherReducer
+  headerData: headerDataReducer,
+  coordinates: coordinatesReducer,
+  weather: weatherReducer,
+  counter: counterReducer,
+  metrics: metricsReducer
 });
 
 export default reducers;

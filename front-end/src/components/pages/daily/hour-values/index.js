@@ -6,7 +6,7 @@ import { compass, genIconURL, kToCels } from '../../../../utils/constants';
 
 const HourValues = () => {
   let hoursData;
-  const res = useSelector(state => state.weatherReducer.daysData.hourly);
+  const res = useSelector(state => state.weather.hourly);
   if (res) {
     hoursData = res.slice(0, 24).map((hour, i) => {
       const { dt, weather, temp, wind_speed, feels_like, wind_deg, pressure, humidity } = hour;

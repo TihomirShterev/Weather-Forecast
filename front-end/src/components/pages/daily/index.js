@@ -1,44 +1,47 @@
-import React, { useEffect } from 'react';
-import { Redirect, useParams } from 'react-router';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.css';
-import { cities } from '../../../utils/constants';
 import AddMetrics from '../../pages/daily/add-metrics';
 import HourValues from '../../pages/daily/hour-values';
 import Arrows from '../../pages/daily/arrows';
 import HoursListKeys from '../../pages/daily/hours-list-keys';
 import Header from '../../common/header';
-import { fetchCoordinates, fetchFullWeatherInfo } from '../../../redux/actions/forecastActions';
+import { incrementCounter } from '../../../redux/actions/forecastActions';
+import ErrorBoundary from '../../common/ErrorBoundary';
+import { useForecastData } from '../../../utils/hooks';
 
 const DailyForecast = () => {
-  const { city } = useParams();
-  const current = cities.find(({ val }) => city === val);
+  const clickCounter = useSelector(state => state.counter)
   const dispatch = useDispatch();
-  const [latitude, longitude] = useSelector(state => state.coordinatesReducer.coordinates);
 
-  useEffect(() => {
-    dispatch(fetchCoordinates(current.val, current.isoCode));
-  }, [current.isoCode, current.val, dispatch]);
+  const showPreviousDay = () => {
+    dispatch(incrementCounter(clickCounter));
+  };
 
-  useEffect(() => {
-    if (latitude && longitude) {
-      dispatch(fetchFullWeatherInfo(latitude, longitude));
-    }
-  }, [dispatch, latitude, longitude]);
-
-  if (!current) {
-    return <Redirect to="/" />;
-  }
+  useForecastData();
 
   return (
     <div className={styles["daily-container"]}>
-      <Header />
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
       <section className={styles["hourly-forecast"]}>
-        <HoursListKeys />
-        <HourValues />
+        <ErrorBoundary>
+          <HoursListKeys />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <HourValues />
+        </ErrorBoundary>
       </section>
-      <Arrows />
-      <AddMetrics />
+      <ErrorBoundary>
+        <Arrows />
+      </ErrorBoundary>
+      <button className={styles["history-btn"]} onClick={showPreviousDay}>
+        {clickCounter % 6 !== 5 ? 'Предишен ден' : 'Днес'}
+      </button>
+      <ErrorBoundary>
+        <AddMetrics />
+      </ErrorBoundary>
     </div>
   );
 };

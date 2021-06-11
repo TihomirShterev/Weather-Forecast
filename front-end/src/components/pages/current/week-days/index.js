@@ -6,7 +6,7 @@ import { dayTranslations, genIconURL, kToCels, weatherTranslations } from '../..
 
 const WeekDays = () => {
   let weekData;
-  const res = useSelector(state => state.weatherReducer.daysData.daily);
+  const res = useSelector(state => state.weather.daily);
   if (res) {
     weekData = res.slice(0, 7).map((day, i) => {
       const { dt, temp, weather, humidity, wind_speed, sunrise, sunset } = day;

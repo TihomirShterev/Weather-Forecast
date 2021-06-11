@@ -1,82 +1,87 @@
-import React, { useState } from 'react';
-import { addMetrics } from '../../../../services/metrics';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMetrics, setMetricsFormData } from '../../../../redux/actions/forecastActions';
 import styles from './index.module.css';
 
 const AddMetrics = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [temperature, setTemperature] = useState(0);
-  const [windSpeed, setWindSpeed] = useState(0);
-  const [humidity, setHumidity] = useState(0);
-  const [pressure, setPressure] = useState(0);
-  const [rain, setRain] = useState(0);
-  const [usernameError, setUsernameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [temperatureError, setTemperatureError] = useState(false);
-  const [windSpeedError, setWindSpeedError] = useState(false);
-  const [humidityError, setHumidityError] = useState(false);
-  const [pressureError, setPressureError] = useState(false);
-  const [rainError, setRainError] = useState(false);
-  const [emptyFieldsError, setEmptyFieldsError] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const formData = useSelector(state => state.metrics);
+  const {
+    username,
+    email,
+    temperature,
+    windSpeed,
+    humidity,
+    pressure,
+    rain,
+    usernameError,
+    emailError,
+    temperatureError,
+    windSpeedError,
+    humidityError,
+    pressureError,
+    rainError,
+    emptyFieldsError,
+    isVisible
+  } = formData;
+  const dispatch = useDispatch();
 
   const showForm = () => {
-    setIsVisible(true);
+    dispatch(setMetricsFormData({ isVisible: true }));
   };
 
   const closeForm = () => {
-    setIsVisible(false);
+    dispatch(setMetricsFormData({ isVisible: false }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (0 < username.length && username.length < 6) {
-      setUsernameError(true);
+      dispatch(setMetricsFormData({ userNameError: true }));
     } else {
-      setUsernameError(false);
+      dispatch(setMetricsFormData({ userNameError: false }));
     }
 
     if (0 < email.length && /^[a-zA-Z0-9.-]{6,}@\w+.\w+$/.test(email) === false) {
-      setEmailError(true);
+      dispatch(setMetricsFormData({ emailError: true }));
     } else {
-      setEmailError(false);
+      dispatch(setMetricsFormData({ emailError: false }));
     }
 
     if (temperature < -20 || 60 < temperature) {
-      setTemperatureError(true);
+      dispatch(setMetricsFormData({ temperatureError: true }));
     } else {
-      setTemperatureError(false);
+      dispatch(setMetricsFormData({ temperatureError: false }));
     }
 
     if (windSpeed < 0 || 200 < windSpeed) {
-      setWindSpeedError(true);
+      dispatch(setMetricsFormData({ windSpeedError: true }));
     } else {
-      setWindSpeedError(false);
+      dispatch(setMetricsFormData({ windSpeedError: false }));
     }
 
     if (humidity < 0 || 100 < humidity) {
-      setHumidityError(true);
+      dispatch(setMetricsFormData({ humidityError: true }));
     } else {
-      setHumidityError(false);
+      dispatch(setMetricsFormData({ humidityError: false }));
     }
 
     if (pressure < 0 || 3000 < pressure) {
-      setPressureError(true);
+      dispatch(setMetricsFormData({ pressureError: true }));
     } else {
-      setPressureError(false);
+      dispatch(setMetricsFormData({ pressureError: false }));
     }
 
     if (rain < 0 || 1000 < rain) {
-      setRainError(true);
+      dispatch(setMetricsFormData({ rainError: true }));
     } else {
-      setRainError(false);
+      dispatch(setMetricsFormData({ rainError: false }));
     }
 
     if (!username || !email) {
-      setEmptyFieldsError(true);
+      dispatch(setMetricsFormData({ emptyFieldsError: true }));
     } else {
-      setEmptyFieldsError(false);
+      dispatch(setMetricsFormData({ emptyFieldsError: false }));
     }
 
     let hasNoError =
@@ -89,8 +94,8 @@ const AddMetrics = () => {
       && (0 <= rain && rain <= 1000);
 
     if (hasNoError) {
-      setIsVisible(false);
-      await addMetrics({ username, email, temperature, windSpeed, humidity, pressure, rain });
+      dispatch(setMetricsFormData({ isVisible: false }));
+      dispatch(addMetrics({ username, email, temperature, windSpeed, humidity, pressure, rain }));
     }
   };
 
@@ -121,7 +126,7 @@ const AddMetrics = () => {
                     name="username"
                     id="username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => dispatch(setMetricsFormData({ username: e.target.value }))}
                     placeholder=""
                   />
                   <p className={styles.error}>
@@ -136,7 +141,7 @@ const AddMetrics = () => {
                     name="email"
                     id="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => dispatch(setMetricsFormData({ email: e.target.value }))}
                     placeholder=""
                   />
                   <p className={styles.error}>
@@ -151,7 +156,7 @@ const AddMetrics = () => {
                     name="temperature"
                     id="temperature"
                     value={temperature}
-                    onChange={(e) => setTemperature(e.target.value)}
+                    onChange={(e) => dispatch(setMetricsFormData({ temperature: e.target.value }))}
                     placeholder=""
                   />
                   <span> &deg;C</span>
@@ -167,7 +172,7 @@ const AddMetrics = () => {
                     name="windSpeed"
                     id="windSpeed"
                     value={windSpeed}
-                    onChange={(e) => setWindSpeed(e.target.value)}
+                    onChange={(e) => dispatch(setMetricsFormData({ windSpeed: e.target.value }))}
                     placeholder=""
                   />
                   <span> м/с</span>
@@ -183,7 +188,7 @@ const AddMetrics = () => {
                     name="humidity"
                     id="humidity"
                     value={humidity}
-                    onChange={(e) => setHumidity(e.target.value)}
+                    onChange={(e) => dispatch(setMetricsFormData({ humidity: e.target.value }))}
                     placeholder=""
                   />
                   <span> %</span>
@@ -199,7 +204,7 @@ const AddMetrics = () => {
                     name="pressure"
                     id="pressure"
                     value={pressure}
-                    onChange={(e) => setPressure(e.target.value)}
+                    onChange={(e) => dispatch(setMetricsFormData({ pressure: e.target.value }))}
                     placeholder=""
                   />
                   <span> hPa</span>
@@ -215,7 +220,7 @@ const AddMetrics = () => {
                     name="rain"
                     id="rain"
                     value={rain}
-                    onChange={(e) => setRain(e.target.value)}
+                    onChange={(e) => dispatch(setMetricsFormData({ rain: e.target.value }))}
                     placeholder=""
                   />
                   <span> мл</span>

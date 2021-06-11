@@ -2,7 +2,14 @@ import { mapsURL, mapsKey, baseURL, apiKey, historyURL } from "../../config/conf
 import { ActionTypes } from "../constants/action-types";
 import previousFiveDays from "../../utils/constants";
 
-export const fetchCoordinates = (cityName, isoCode) => async (dispatch) => {
+export const setClassAtr = data => {
+  return {
+    type: ActionTypes.SET_CLASS_ATTR,
+    payload: data
+  };
+};
+
+export const fetchCoordinates = (cityName, isoCode) => async dispatch => {
   const res = await fetch(`${mapsURL}?address=${cityName}+${isoCode}&key=${mapsKey}`);
   const data = await res.json();
   const lat = data.results[0].geometry.location.lat;
@@ -13,7 +20,7 @@ export const fetchCoordinates = (cityName, isoCode) => async (dispatch) => {
   });
 };
 
-export const fetchFullWeatherInfo = (lat, lon) => async (dispatch) => {
+export const fetchFullWeatherInfo = (lat, lon) => async dispatch => {
   const res = await fetch(`${baseURL}?lat=${lat}&lon=${lon}&appid=${apiKey}`);
   const data = await res.json();
   dispatch({
@@ -27,6 +34,35 @@ export const fetchPreviousDayInfo = (lat, lon, i) => async (dispatch) => {
   const data = await res.json();
   dispatch({
     type: ActionTypes.FETCH_PREVIOUS_DAY_INFO,
+    payload: data
+  });
+};
+
+export const incrementCounter = clickCounter => {
+  return {
+    type: ActionTypes.INCREMENT_COUNTER,
+    payload: clickCounter + 1
+  };
+};
+
+export const setMetricsFormData = data => {
+  return {
+    type: ActionTypes.SET_METRICS_FORM_DATA,
+    payload: data
+  }
+};
+
+export const addMetrics = metricsData => async dispatch => {
+  const res = await fetch('https://openweathermap.org/stations#measurement', {
+    method: 'POST',
+    body: JSON.stringify(metricsData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const data = await res.json();
+  dispatch({
+    type: ActionTypes.ADD_METRICS,
     payload: data
   });
 };
