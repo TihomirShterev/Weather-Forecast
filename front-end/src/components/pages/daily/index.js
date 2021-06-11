@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import React, { useEffect } from 'react';
+import { Redirect, useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.css';
 import { cities } from '../../../utils/constants';
 import AddMetrics from '../../pages/daily/add-metrics';
@@ -7,81 +8,36 @@ import HourValues from '../../pages/daily/hour-values';
 import Arrows from '../../pages/daily/arrows';
 import HoursListKeys from '../../pages/daily/hours-list-keys';
 import Header from '../../common/header';
-import { getCoordinates } from '../../../services/coordinates';
-import { getFullWeatherInfo, getPreviousDayInfo } from '../../../services/weather';
+import { fetchCoordinates, fetchFullWeatherInfo } from '../../../redux/actions/forecastActions';
 
-const DailyForecast = ({
-  match: {
-    params: { city },
-  },
-}) => {
-  const [hours, setHours] = useState([]);
-  const [cityName, setCityName] = useState('');
-  const [country, setCountry] = useState('');
-  const [cityPath, setCityPath] = useState('');
-  const [clickCounter, setClickCounter] = useState(0);
-
+const DailyForecast = () => {
+  const { city } = useParams();
   const current = cities.find(({ val }) => city === val);
-
-  const showPreviousDay = () => {
-    setClickCounter(clickCounter + 1);
-  };
-
-  const getInfo = useCallback(async () => {
-    try {
-      const [latitude, longitude] = await getCoordinates(current.val, current.isoCode);
-      let data;
-
-      if (clickCounter % 6 === 0) {
-        data = await getFullWeatherInfo(latitude, longitude);
-      } else {
-        if (clickCounter % 6 !== 0) {
-          data = await getPreviousDayInfo(latitude, longitude, clickCounter);
-        }
-      }
-      let hoursData = data.hourly.slice(0, 24).map((hour, i) => {
-        return (
-          <HourValues key={i} {...hour} />
-        );
-      });
-      setHours(hoursData);
-
-      setCityName(current.name);
-      setCountry(current.country);
-      setCityPath(current.val);
-    } catch (err) {
-      console.log(err);
-    }
-
-  }, [current, clickCounter]);
+  const dispatch = useDispatch();
+  const [latitude, longitude] = useSelector(state => state.coordinatesReducer.coordinates);
 
   useEffect(() => {
-    getInfo();
-  }, [getInfo]);
+    dispatch(fetchCoordinates(current.val, current.isoCode));
+  }, [current.isoCode, current.val, dispatch]);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      dispatch(fetchFullWeatherInfo(latitude, longitude));
+    }
+  }, [dispatch, latitude, longitude]);
 
   if (!current) {
     return <Redirect to="/" />;
   }
 
-  const stateData = {
-    cityName,
-    country,
-    cityPath
-  };
-
   return (
     <div className={styles["daily-container"]}>
-      <Header {...stateData} />
+      <Header />
       <section className={styles["hourly-forecast"]}>
         <HoursListKeys />
-        <div className={styles["hour-values-container"]}>
-          {hours}
-        </div>
+        <HourValues />
       </section>
       <Arrows />
-      <button className={styles["history-btn"]} onClick={showPreviousDay}>
-        {clickCounter % 6 !== 5 ? 'Предишен ден' : 'Днес'}
-      </button>
       <AddMetrics />
     </div>
   );

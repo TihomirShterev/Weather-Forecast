@@ -24,13 +24,3 @@
   text-decoration: none;
   color: black;
 }
-
-.future-forecast .week-days-list {
-  display: flex;
-  background: #33313C;
-  color: white;
-  width: 840px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-}

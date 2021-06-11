@@ -15,14 +15,6 @@
   background: white;
 }
 
-.hourly-forecast .hour-values-container {
-  display: flex;
-  width: 1234px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
-
 .history-btn {
   align-self: flex-end;
   position: relative;

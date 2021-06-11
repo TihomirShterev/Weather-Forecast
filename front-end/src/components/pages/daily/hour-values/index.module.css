@@ -1,3 +1,11 @@
+.hour-values-container {
+  display: flex;
+  width: 1234px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
 .hour-values {
   flex-basis: 10%;
   display: flex;

@@ -1,93 +1,40 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
-import moment from 'moment';
+import React, { useEffect } from 'react';
+import { Redirect, useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.css';
-import { cities, genIconURL, kToCels, weatherTranslations } from '../../../utils/constants';
-import WeekDay from '../../pages/current/week-day';
+import { cities } from '../../../utils/constants';
+import WeekDays from './week-days';
 import AtTheMoment from '../../pages/current/at-the-moment';
 import Header from '../../common/header';
-import { getCoordinates } from '../../../services/coordinates';
-import { getFullWeatherInfo } from '../../../services/weather';
+import { fetchCoordinates, fetchFullWeatherInfo } from '../../../redux/actions/forecastActions';
 
-const CurrentForecast = ({
-  match: {
-    params: { city },
-  },
-}) => {
-  const [weather, setWeather] = useState('');
-  const [temperature, setTemperature] = useState('');
-  const [description, setDescription] = useState('');
-  const [feelsLike, setFeelsLike] = useState('');
-  const [humidity, setHumidity] = useState('');
-  const [windSpeed, setWindSpeed] = useState('');
-  const [sunrise, setSunrise] = useState('');
-  const [sunset, setSunset] = useState('');
-  const [week, setWeek] = useState([]);
-  const [cityName, setCityName] = useState('');
-  const [country, setCountry] = useState('');
-  const [cityPath, setCityPath] = useState('');
-
+const CurrentForecast = () => {
+  const { city } = useParams();
   const current = cities.find(({ val }) => city === val);
-
-  const getInfo = useCallback(async () => {
-    try {
-      const [latitude, longitude] = await getCoordinates(current.val, current.isoCode);
-      const data = await getFullWeatherInfo(latitude, longitude);
-      setWeather(genIconURL(data.current.weather[0].icon));
-      setTemperature(kToCels(data.current.temp));
-      setDescription(weatherTranslations[data.current.weather[0].description]);
-      setFeelsLike(kToCels(data.current.feels_like));
-      setHumidity(data.current.humidity);
-      setWindSpeed(Math.round(data.current.wind_speed));
-      setSunrise(moment(data.current.sunrise).format('hh:mm'));
-      setSunset(moment(data.current.sunset).format('HH:mm'));
-      let weekData = data.daily.slice(0, 7).map((day, i) => {
-        return (
-          <WeekDay key={i} {...day} />
-        );
-      });
-      setWeek(weekData);
-      setCityName(current.name);
-      setCountry(current.country);
-      setCityPath(current.val);
-    } catch (err) {
-      console.log(err);
-    }
-
-  }, [current]);
+  const dispatch = useDispatch();
+  const [latitude, longitude] = useSelector(state => state.coordinatesReducer.coordinates);
 
   useEffect(() => {
-    getInfo();
-  }, [getInfo]);
+    dispatch(fetchCoordinates(current.val, current.isoCode));
+  }, [current.isoCode, current.val, dispatch]);
+
+  useEffect(() => {
+    if (latitude && longitude) {
+      dispatch(fetchFullWeatherInfo(latitude, longitude));
+    }
+  }, [latitude, longitude, dispatch]);
 
   if (!current) {
     return <Redirect to="/" />;
   }
 
-  const stateData = {
-    weather,
-    temperature,
-    description,
-    feelsLike,
-    humidity,
-    windSpeed,
-    sunrise,
-    sunset,
-    week,
-    cityName,
-    country,
-    cityPath
-  };
-
   return (
     <div className={styles["current-container"]}>
-      <Header {...stateData} />
+      <Header />
       <div className={styles["content-container"]}>
-        <AtTheMoment {...stateData} />
+        <AtTheMoment />
         <section className={styles["future-forecast"]}>
-          <div className={styles["week-days-list"]}>
-            {week}
-          </div>
+          <WeekDays />
         </section>
       </div>
     </div>
