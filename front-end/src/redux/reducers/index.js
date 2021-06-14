@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
-import { coordinatesReducer, weatherReducer, counterReducer, metricsReducer, headerDataReducer } from "./forecastReducer";
+import { coordinatesReducer, weatherReducer, counterReducer, metricsReducer } from "./forecastReducer";
 
 const reducers = combineReducers({
-  headerData: headerDataReducer,
   coordinates: coordinatesReducer,
   weather: weatherReducer,
   counter: counterReducer,

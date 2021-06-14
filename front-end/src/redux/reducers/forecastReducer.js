@@ -21,22 +21,6 @@ const initState = {
     rainError: false,
     emptyFieldsError: false,
     isVisible: false
-  },
-  headerData: {
-    currentClassAtr: '',
-    dailyClassAtr: ''
-  }
-};
-
-export const headerDataReducer = (state = initState.headerData, { type, payload }) => {
-  switch (type) {
-    case ActionTypes.SET_CLASS_ATTR:
-      return {
-        ...state,
-        ...payload
-      };
-    default:
-      return state;
   }
 };
 

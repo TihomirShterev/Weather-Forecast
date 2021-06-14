@@ -1,24 +1,22 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import styles from './index.module.css';
 import { cities } from '../../../utils/constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { setClassAtr } from '../../../redux/actions/forecastActions';
 
 const Header = () => {
   const { city } = useParams();
   const { name, country, val } = cities.find(({ val }) => city === val);
   const location = useLocation();
-  const { currentClassAtr, dailyClassAtr } = useSelector(state => state.headerData);
-  const dispatch = useDispatch();
+  const [currentClass, setCurrentClass] = useState('');
+  const [dailyClass, setDailyClass] = useState('');
 
   useLayoutEffect(() => {
     if (location.pathname === `/${val}/current`) {
-      dispatch(setClassAtr({ currentClassAtr: 'highlighted', dailyClassAtr: '' }));
+      setCurrentClass('highlighted');
     } else if (location.pathname === `/${val}/daily`) {
-      dispatch(setClassAtr({ currentClassAtr: '', dailyClassAtr: 'highlighted' }));
+      setDailyClass('highlighted');
     }
-  }, [location.pathname, val, dispatch]);
+  }, [location.pathname, val]);
 
 
   return (
@@ -28,10 +26,10 @@ const Header = () => {
         <h2>{country}</h2>
       </div>
       <ul>
-        <li className={styles[`${currentClassAtr}`]}>
+        <li className={styles[`${currentClass}`]}>
           <Link to={`/${val}/current`}>В момента</Link>
         </li>
-        <li className={styles[`${dailyClassAtr}`]}>
+        <li className={styles[`${dailyClass}`]}>
           <Link to={`/${val}/daily`}>24 часа</Link>
         </li>
         <li>

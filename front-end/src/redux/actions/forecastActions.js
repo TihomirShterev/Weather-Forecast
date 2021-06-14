@@ -2,13 +2,6 @@ import { mapsURL, mapsKey, baseURL, apiKey, historyURL } from "../../config/conf
 import { ActionTypes } from "../constants/actionTypes";
 import previousFiveDays from "../../utils/constants";
 
-export const setClassAtr = data => {
-  return {
-    type: ActionTypes.SET_CLASS_ATTR,
-    payload: data
-  };
-};
-
 export const fetchCoordinates = (cityName, isoCode) => async dispatch => {
   const res = await fetch(`${mapsURL}?address=${cityName}+${isoCode}&key=${mapsKey}`);
   const data = await res.json();
