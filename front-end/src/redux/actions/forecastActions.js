@@ -5,11 +5,11 @@ import previousFiveDays from "../../utils/constants";
 export const fetchCoordinates = (cityName, isoCode) => async dispatch => {
   const res = await fetch(`${mapsURL}?address=${cityName}+${isoCode}&key=${mapsKey}`);
   const data = await res.json();
-  const lat = data.results[0].geometry.location.lat;
-  const lon = data.results[0].geometry.location.lng;
+  const lat = Number(data.results[0].geometry.location.lat.toFixed(4));
+  const lon = Number(data.results[0].geometry.location.lng.toFixed(4));
   dispatch({
     type: ActionTypes.FETCH_COORDINATES,
-    payload: [lat, lon]
+    payload: { lat, lon }
   });
 };
 
@@ -29,11 +29,4 @@ export const fetchPreviousDayInfo = (lat, lon, i) => async (dispatch) => {
     type: ActionTypes.FETCH_PREVIOUS_DAY_INFO,
     payload: data
   });
-};
-
-export const incrementCounter = clickCounter => {
-  return {
-    type: ActionTypes.INCREMENT_COUNTER,
-    payload: clickCounter + 1
-  };
 };

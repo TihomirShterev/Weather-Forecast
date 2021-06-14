@@ -1,24 +1,34 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
 import AddMetrics from './addMetrics';
 import HourValues from './hourValues';
 import Arrows from '../../pages/daily/arrows';
 import HoursListKeys from './hoursListKeys';
 import Header from '../../common/header';
-import { incrementCounter } from '../../../redux/actions/forecastActions';
+import { fetchFullWeatherInfo, fetchPreviousDayInfo } from '../../../redux/actions/forecastActions';
 import ErrorBoundary from '../../common/ErrorBoundary';
 import { useForecastData } from '../../../utils/hooks';
 
 const DailyForecast = () => {
-  const clickCounter = useSelector(state => state.counter)
+  const [clickCounter, setClickCounter] = useState(0);
   const dispatch = useDispatch();
+  const { lat, lon } = useForecastData();
 
   const showPreviousDay = () => {
-    dispatch(incrementCounter(clickCounter));
+    setClickCounter(clickCounter + 1);
   };
 
-  useForecastData();
+  useEffect(() => {
+    if (lat && lon) {
+      if (clickCounter % 6 === 0) {
+        dispatch(fetchFullWeatherInfo(lat, lon));
+      } else {
+        dispatch(fetchPreviousDayInfo(lat, lon, clickCounter))
+      }
+    }
+  }, [dispatch, lat, lon, clickCounter]);
+
 
   return (
     <div className={styles["daily-container"]}>
