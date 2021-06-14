@@ -3,25 +3,7 @@ import { ActionTypes } from "../constants/actionTypes";
 const initState = {
   coordinates: [],
   daysData: {},
-  clickCounter: 0,
-  metrics: {
-    username: '',
-    email: '',
-    temperature: 0,
-    windSpeed: 0,
-    humidity: 0,
-    pressure: 0,
-    rain: 0,
-    usernameError: false,
-    emailError: false,
-    temperatureError: false,
-    windSpeedError: false,
-    humidityError: false,
-    pressureError: false,
-    rainError: false,
-    emptyFieldsError: false,
-    isVisible: false
-  }
+  clickCounter: 0
 };
 
 export const coordinatesReducer = (state = initState.coordinates, { type, payload }) => {
@@ -53,20 +35,6 @@ export const counterReducer = (state = initState.clickCounter, { type, payload }
   switch (type) {
     case ActionTypes.INCREMENT_COUNTER:
       return payload;
-    default:
-      return state;
-  }
-};
-
-export const metricsReducer = (state = initState.metrics, { type, payload }) => {
-  switch (type) {
-    case ActionTypes.SET_METRICS_FORM_DATA:
-      return {
-        ...state,
-        ...payload
-      };
-    case ActionTypes.ADD_METRICS:
-      return state;
     default:
       return state;
   }

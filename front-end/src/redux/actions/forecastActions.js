@@ -37,25 +37,3 @@ export const incrementCounter = clickCounter => {
     payload: clickCounter + 1
   };
 };
-
-export const setMetricsFormData = data => {
-  return {
-    type: ActionTypes.SET_METRICS_FORM_DATA,
-    payload: data
-  }
-};
-
-export const addMetrics = metricsData => async dispatch => {
-  const res = await fetch('https://openweathermap.org/stations#measurement', {
-    method: 'POST',
-    body: JSON.stringify(metricsData),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-  const data = await res.json();
-  dispatch({
-    type: ActionTypes.ADD_METRICS,
-    payload: data
-  });
-};
