@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.module.css';
-import WeekDays from './week-days';
-import AtTheMoment from '../../pages/current/at-the-moment';
+import WeekDays from './weekDays';
+import AtTheMoment from './atTheMoment';
 import Header from '../../common/header';
 import ErrorBoundary from '../../common/ErrorBoundary';
 import { useForecastData } from '../../../utils/hooks';

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.css';
-import AddMetrics from '../../pages/daily/add-metrics';
-import HourValues from '../../pages/daily/hour-values';
+import AddMetrics from './addMetrics';
+import HourValues from './hourValues';
 import Arrows from '../../pages/daily/arrows';
-import HoursListKeys from '../../pages/daily/hours-list-keys';
+import HoursListKeys from './hoursListKeys';
 import Header from '../../common/header';
 import { incrementCounter } from '../../../redux/actions/forecastActions';
 import ErrorBoundary from '../../common/ErrorBoundary';

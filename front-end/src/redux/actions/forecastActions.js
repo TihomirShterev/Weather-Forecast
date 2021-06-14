@@ -1,5 +1,5 @@
 import { mapsURL, mapsKey, baseURL, apiKey, historyURL } from "../../config/config";
-import { ActionTypes } from "../constants/action-types";
+import { ActionTypes } from "../constants/actionTypes";
 import previousFiveDays from "../../utils/constants";
 
 export const setClassAtr = data => {

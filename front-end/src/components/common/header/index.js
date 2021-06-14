@@ -18,7 +18,7 @@ const Header = () => {
     } else if (location.pathname === `/${val}/daily`) {
       dispatch(setClassAtr({ currentClassAtr: '', dailyClassAtr: 'highlighted' }));
     }
-  }, [location.pathname, val]);
+  }, [location.pathname, val, dispatch]);
 
 
   return (
