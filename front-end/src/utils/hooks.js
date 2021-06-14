@@ -4,11 +4,13 @@ import { Redirect, useParams } from "react-router";
 import { cities } from "./constants";
 import { fetchCoordinates } from "../redux/actions/forecastActions";
 
+const selectWeatherInfo = state => state.forecast;
+
 export const useForecastData = () => {
   const { city } = useParams();
   const current = cities.find(({ val }) => city === val);
   const dispatch = useDispatch();
-  const { lat, lon } = useSelector(state => state.forecast);
+  const { lat, lon } = useSelector(selectWeatherInfo);
 
   useEffect(() => {
     dispatch(fetchCoordinates(current.val, current.isoCode));

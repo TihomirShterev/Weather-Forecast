@@ -8,16 +8,6 @@ export const cities = [
   { name: 'Брюксел', val: 'brussel', lat: 50.8505, lon: 4.3488, country: 'Белгия', isoCode: 'be' },
 ];
 
-const currentMoment = new Date();
-const currentMomentInMS = Math.trunc(currentMoment.getTime() / 1000);
-let previousFiveDays = [];
-
-for (let i = 0; i <= 5; i++) {
-  previousFiveDays.push(currentMomentInMS - i * 86400);
-}
-
-export default previousFiveDays;
-
 export const genIconURL = (iconName) => `http://openweathermap.org/img/wn/${iconName}.png`;
 
 export const kToCels = (k) => Math.trunc(k - 273.15);

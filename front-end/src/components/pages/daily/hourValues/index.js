@@ -4,9 +4,11 @@ import moment from 'moment';
 import styles from './index.module.css';
 import { compass, genIconURL, kToCels } from '../../../../utils/constants';
 
+const selectHourlyWeatherInfo = state => state.forecast.hourly;
+
 const HourValues = () => {
   let hoursData;
-  const res = useSelector(state => state.forecast.hourly);
+  const res = useSelector(selectHourlyWeatherInfo);
   if (res) {
     hoursData = res.slice(0, 24).map((hour, i) => {
       const { dt, weather, temp, wind_speed, feels_like, wind_deg, pressure, humidity } = hour;

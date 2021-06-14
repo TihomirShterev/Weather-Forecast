@@ -1,6 +1,5 @@
 import { mapsURL, mapsKey, baseURL, apiKey, historyURL } from "../../config/config";
 import ActionTypes from "../constants/actionTypes";
-import previousFiveDays from "../../utils/constants";
 
 export const fetchCoordinates = (cityName, isoCode) => async dispatch => {
   try {
@@ -37,6 +36,14 @@ export const fetchFullWeatherInfo = (lat, lon) => async dispatch => {
 };
 
 export const fetchPreviousDayInfo = (lat, lon, i) => async (dispatch) => {
+  const currentMoment = new Date();
+  const currentMomentInMS = Math.trunc(currentMoment.getTime() / 1000);
+  let previousFiveDays = [];
+
+  for (let i = 0; i <= 5; i++) {
+    previousFiveDays.push(currentMomentInMS - i * 86400);
+  }
+
   try {
     const res = await fetch(`${historyURL}?lat=${lat}&lon=${lon}&dt=${previousFiveDays[i % 6]}&appid=${apiKey}`);
     const data = await res.json();
