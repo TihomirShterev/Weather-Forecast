@@ -7,6 +7,7 @@ const forecastReducer = (state = initState, { type, payload }) => {
     case ActionTypes.FETCH_COORDINATES:
     case ActionTypes.FETCH_FULL_WEATHER_INFO:
     case ActionTypes.FETCH_PREVIOUS_DAY_INFO:
+    case ActionTypes.SERVER_ERROR:
       return {
         ...state,
         ...payload
