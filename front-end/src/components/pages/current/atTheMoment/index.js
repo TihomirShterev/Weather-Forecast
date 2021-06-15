@@ -4,10 +4,8 @@ import moment from 'moment';
 import styles from './index.module.css';
 import { genIconURL, kToCels, weatherTranslations } from '../../../../utils/constants';
 
-const selectCurrentWeatherInfo = state => state.forecast.current;
-
 const AtTheMoment = () => {
-  const current = useSelector(selectCurrentWeatherInfo);
+  const current = useSelector(state => state.forecast.current);
   if (current) {
     const { weather, temp, feels_like, humidity, wind_speed, sunrise, sunset } = current;
     const weatherIcon = genIconURL(weather[0].icon);

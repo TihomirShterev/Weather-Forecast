@@ -4,11 +4,9 @@ import moment from 'moment';
 import styles from './index.module.css';
 import { dayTranslations, genIconURL, kToCels, weatherTranslations } from '../../../../utils/constants';
 
-const selectWeeklyWeatherInfo = state => state.forecast.daily;
-
 const WeekDays = () => {
   let weekData;
-  const res = useSelector(selectWeeklyWeatherInfo);
+  const res = useSelector(state => state.forecast.daily);
   if (res) {
     weekData = res.slice(0, 7).map((day, i) => {
       const { dt, temp, weather, humidity, wind_speed, sunrise, sunset } = day;
