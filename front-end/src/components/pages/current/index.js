@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
-import WeekDays from './weekDays';
-import AtTheMoment from './atTheMoment';
-import Header from '../../common/header';
-import ErrorBoundary from '../../common/ErrorBoundary';
 import { useForecastData } from '../../../utils/hooks';
 import { fetchFullWeatherInfo } from '../../../redux/actions/forecastActions';
+import Header from '../../common/header';
+import AtTheMoment from './atTheMoment';
+import WeekDays from './weekDays';
+import ServerError from '../../common/serverError';
+import ErrorBoundary from '../../common/ErrorBoundary';
 
 const CurrentForecast = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const CurrentForecast = () => {
 
   return (
     <div className={styles["current-container"]}>
+      <ServerError />
       <ErrorBoundary>
         <Header />
       </ErrorBoundary>

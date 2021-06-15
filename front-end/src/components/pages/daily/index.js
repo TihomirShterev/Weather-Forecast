@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styles from './index.module.css';
-import AddMetrics from './addMetrics';
+import { useForecastData } from '../../../utils/hooks';
+import { fetchFullWeatherInfo, fetchPreviousDayInfo } from '../../../redux/actions/forecastActions';
+import Header from '../../common/header';
+import HoursListKeys from './hoursListKeys';
 import HourValues from './hourValues';
 import Arrows from '../../pages/daily/arrows';
-import HoursListKeys from './hoursListKeys';
-import Header from '../../common/header';
-import { fetchFullWeatherInfo, fetchPreviousDayInfo } from '../../../redux/actions/forecastActions';
+import AddMetrics from './addMetrics';
+import ServerError from '../../common/serverError';
 import ErrorBoundary from '../../common/ErrorBoundary';
-import { useForecastData } from '../../../utils/hooks';
 
 const DailyForecast = () => {
   const [clickCounter, setClickCounter] = useState(0);
@@ -32,6 +33,7 @@ const DailyForecast = () => {
 
   return (
     <div className={styles["daily-container"]}>
+      <ServerError />
       <ErrorBoundary>
         <Header />
       </ErrorBoundary>
