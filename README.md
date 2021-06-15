@@ -6,6 +6,7 @@
 ## Tech Stack
 
 - React.js
+- Redux
 
 ## Installation
 
