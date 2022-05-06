@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import styles from './index.module.css';
-import { useForecastData } from '../../../utils/hooks';
-import { fetchFullWeatherInfo, fetchPreviousDayInfo } from '../../../redux/actions/forecastActions';
-import Header from '../../common/header';
-import HoursListKeys from './hoursListKeys';
-import HourValues from './hourValues';
-import Arrows from '../../pages/daily/arrows';
-import AddMetrics from './addMetrics';
+import { useParams } from 'react-router-dom';
 import ServerError from '../../common/serverError';
 import ErrorBoundary from '../../common/ErrorBoundary';
+import Header from '../../common/header';
+import AddMetrics from './addMetrics';
+import HourValues from './hourValues';
+import HoursListKeys from './hoursListKeys';
+import Arrows from '../../pages/daily/arrows';
+import { cities } from '../../../utils/constants';
+import { fetchFullWeatherInfo, fetchPreviousDayInfo } from '../../../redux/actions/forecastActions';
+import styles from './index.module.css';
 
 const DailyForecast = () => {
+  const { city } = useParams();
+  const { lat, lon } = cities.find(({ val }) => city === val);
   const [clickCounter, setClickCounter] = useState(0);
   const dispatch = useDispatch();
-  const { lat, lon } = useForecastData();
 
   const showPreviousDay = () => {
     setClickCounter(clickCounter + 1);
@@ -29,7 +31,6 @@ const DailyForecast = () => {
       }
     }
   }, [dispatch, lat, lon, clickCounter]);
-
 
   return (
     <div className={styles["daily-container"]}>
