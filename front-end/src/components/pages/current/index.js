@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import ServerError from '../../common/serverError';
-import ErrorBoundary from '../../common/ErrorBoundary';
+import styles from './index.module.css';
+import { useForecastData } from '../../../utils/hooks';
+import { fetchFullWeatherInfo } from '../../../redux/actions/forecastActions';
 import Header from '../../common/header';
 import AtTheMoment from './atTheMoment';
 import WeekDays from './weekDays';
-import { cities } from '../../../utils/constants';
-import { fetchFullWeatherInfo } from '../../../redux/actions/forecastActions';
-import styles from './index.module.css';
+import ServerError from '../../common/serverError';
+import ErrorBoundary from '../../common/ErrorBoundary';
 
 const CurrentForecast = () => {
-  const { city } = useParams();
-  const { lat, lon } = cities.find(({ val }) => city === val);
   const dispatch = useDispatch();
+  const { lat, lon } = useForecastData();
 
   useEffect(() => {
     if (lat && lon) {
